@@ -1,0 +1,48 @@
+"use client";
+import { ToolLayout } from "@/components/ToolLayout";
+import { useState } from "react";
+
+function queryPath(obj: unknown, path: string): unknown {
+  let p = path.replace(/^\$\.?/, "");
+  if (!p) return obj;
+  const parts: string[] = [];
+  for (const seg of p.split(".")) {
+    const m = seg.match(/^([^\[]*)\[(\d+)\]$/);
+    if (m) { if (m[1]) parts.push(m[1]); parts.push(`[${m[2]}]`); }
+    else if (seg) parts.push(seg);
+  }
+  let cur: unknown = obj;
+  for (const part of parts) {
+    if (cur == null) return undefined;
+    const idx = part.match(/^\[(\d+)\]$/);
+    if (idx) cur = (cur as unknown[])[Number(idx[1])];
+    else cur = (cur as Record<string, unknown>)[part];
+  }
+  return cur;
+}
+
+export default function Page() {
+  const [json, setJson] = useState("");
+  const [path, setPath] = useState("$.");
+  const [result, setResult] = useState("");
+
+  const query = () => {
+    try {
+      const obj = JSON.parse(json);
+      const r = queryPath(obj, path);
+      setResult(r === undefined ? "未找到" : JSON.stringify(r, null, 2));
+    } catch (e) { setResult("错误: " + (e as Error).message); }
+  };
+
+  return (
+    <ToolLayout title="JSON Path 查询" description="用路径表达式查询 JSON 数据">
+      <textarea value={json} onChange={e => setJson(e.target.value)} placeholder='{"store":{"book":[{"title":"Hello"}]}}' rows={10} style={{ width: "100%", background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, fontFamily: "monospace", resize: "vertical" }} />
+      <div style={{ display: "flex", gap: 8, margin: "12px 0" }}>
+        <input value={path} onChange={e => setPath(e.target.value)} placeholder="$.store.book[0].title" style={{ flex: 1, background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, fontFamily: "monospace" }} />
+        <button onClick={query} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>查询</button>
+        <button onClick={() => navigator.clipboard.writeText(result)} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>复制</button>
+      </div>
+      <pre style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, minHeight: 100, fontFamily: "monospace", fontSize: 13 }}>{result}</pre>
+    </ToolLayout>
+  );
+}
