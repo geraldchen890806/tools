@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/i18n";
 import { Navbar } from "@/components/Navbar";
 import "./globals.css";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('theme');if(!t)t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})()` }} />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-H7J9JEMQXT"
           strategy="afterInteractive"
@@ -77,6 +79,7 @@ gtag('config', 'G-H7J9JEMQXT');`}
       </head>
       <body className="antialiased min-h-screen">
         <ThemeProvider>
+        <LanguageProvider>
           <Navbar />
           <main className="pt-16">{children}</main>
           <footer
@@ -86,11 +89,9 @@ gtag('config', 'G-H7J9JEMQXT');`}
               color: "var(--text-secondary)",
             }}
           >
-            <p>
-              © {new Date().getFullYear()} AnyFreeTools.
-              免费开源，所有计算均在浏览器本地完成。
-            </p>
+            <p>© {new Date().getFullYear()} AnyFreeTools.</p>
           </footer>
+        </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

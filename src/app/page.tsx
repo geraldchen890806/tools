@@ -1,20 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { categories, allTools } from "@/config/tools";
+import { categories, allTools, type Tool } from "@/config/tools";
 import Link from "next/link";
 import { HomepageJsonLd } from "./homepage-jsonld";
+import { useTranslation } from "@/i18n";
 
 export default function Home() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const filtered = search.trim()
-    ? allTools.filter(
-        (t) =>
-          t.name.toLowerCase().includes(search.toLowerCase()) ||
-          t.description.toLowerCase().includes(search.toLowerCase())
-      )
+    ? allTools.filter((tool) => {
+        const name = t(`tools.${tool.id}.name`).toLowerCase();
+        const desc = t(`tools.${tool.id}.description`).toLowerCase();
+        const q = search.toLowerCase();
+        return name.includes(q) || desc.includes(q);
+      })
     : null;
 
   return (
@@ -23,20 +26,21 @@ export default function Home() {
       {/* Hero */}
       <section className="text-center py-16">
         <h1 className="text-5xl font-bold tracking-tight mb-4">
-          <span style={{ color: "var(--accent-light)" }}>免费</span>在线工具箱
+          <span style={{ color: "var(--accent-light)" }}>{t("home.title")}</span>
+          {t("home.titleSuffix")}
         </h1>
         <p
           className="text-lg max-w-2xl mx-auto mb-10"
           style={{ color: "var(--text-secondary)" }}
         >
-          开发者常用工具集合，无需安装，打开即用。所有数据仅在浏览器本地处理，安全放心。
+          {t("home.subtitle")}
         </p>
 
         {/* Search */}
         <div className="max-w-xl mx-auto relative">
           <input
             type="text"
-            placeholder="搜索工具..."
+            placeholder={t("home.searchPlaceholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full px-5 py-3.5 rounded-xl text-base outline-none transition-all border focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -59,7 +63,7 @@ export default function Home() {
             className="text-sm font-medium mb-4 uppercase tracking-wider"
             style={{ color: "var(--text-secondary)" }}
           >
-            搜索结果 ({filtered.length})
+            {t("home.searchResults")} ({filtered.length})
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((tool) => (
@@ -68,7 +72,7 @@ export default function Home() {
           </div>
           {filtered.length === 0 && (
             <p className="text-center py-12" style={{ color: "var(--text-secondary)" }}>
-              没有找到匹配的工具 🤷
+              {t("home.noResults")}
             </p>
           )}
         </section>
@@ -85,7 +89,7 @@ export default function Home() {
                 border: `1px solid ${activeCategory === null ? "var(--accent)" : "var(--border)"}`,
               }}
             >
-              全部
+              {t("home.allCategory")}
             </button>
             {categories.map((cat) => (
               <button
@@ -98,7 +102,7 @@ export default function Home() {
                   border: `1px solid ${activeCategory === cat.id ? "var(--accent)" : "var(--border)"}`,
                 }}
               >
-                {cat.icon} {cat.name}
+                {cat.icon} {t(`categories.${cat.id}`)}
               </button>
             ))}
           </div>
@@ -110,7 +114,7 @@ export default function Home() {
               <section key={category.id} className="mb-12">
                 <h2 className="text-xl font-semibold mb-5 flex items-center gap-2">
                   <span className="text-2xl">{category.icon}</span>
-                  {category.name}
+                  {t(`categories.${category.id}`)}
                   <span
                     className="text-xs px-2 py-0.5 rounded-full"
                     style={{
@@ -134,7 +138,8 @@ export default function Home() {
   );
 }
 
-function ToolCard({ tool }: { tool: (typeof allTools)[number] }) {
+function ToolCard({ tool }: { tool: Tool }) {
+  const { t } = useTranslation();
   return (
     <Link
       href={tool.href}
@@ -156,7 +161,7 @@ function ToolCard({ tool }: { tool: (typeof allTools)[number] }) {
         <span className="text-2xl">{tool.icon}</span>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-base">{tool.name}</h3>
+            <h3 className="font-semibold text-base">{t(`tools.${tool.id}.name`)}</h3>
             {tool.isNew && (
               <span
                 className="text-[10px] px-1.5 py-0.5 rounded-full font-bold"
@@ -170,7 +175,7 @@ function ToolCard({ tool }: { tool: (typeof allTools)[number] }) {
             className="text-sm mt-1 leading-relaxed"
             style={{ color: "var(--text-secondary)" }}
           >
-            {tool.description}
+            {t(`tools.${tool.id}.description`)}
           </p>
         </div>
         <span

@@ -1,9 +1,11 @@
 "use client";
 
 import { useTheme } from "./ThemeProvider";
+import { useTranslation } from "@/i18n";
 
 export function Navbar() {
   const { theme, toggle } = useTheme();
+  const { t, lang, setLang } = useTranslation();
 
   return (
     <nav
@@ -24,7 +26,7 @@ export function Navbar() {
           style={{ color: "var(--text-secondary)" }}
         >
           <a href="/" className="hover:opacity-80 transition-opacity">
-            首页
+            {t("nav.home")}
           </a>
           <a
             href="https://github.com/geraldchen890806/tools"
@@ -32,8 +34,19 @@ export function Navbar() {
             rel="noopener noreferrer"
             className="hover:opacity-80 transition-opacity"
           >
-            GitHub
+            {t("nav.github")}
           </a>
+          <button
+            onClick={() => setLang(lang === "zh" ? "en" : "zh")}
+            className="w-9 h-9 flex items-center justify-center rounded-lg transition-colors text-xs font-bold"
+            style={{
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border)",
+            }}
+            title={t("nav.toggleLang")}
+          >
+            {lang === "zh" ? "EN" : "中"}
+          </button>
           <button
             onClick={toggle}
             className="w-9 h-9 flex items-center justify-center rounded-lg transition-colors"
@@ -41,7 +54,7 @@ export function Navbar() {
               background: "var(--bg-secondary)",
               border: "1px solid var(--border)",
             }}
-            title={theme === "dark" ? "切换亮色模式" : "切换暗色模式"}
+            title={t("nav.toggleTheme")}
           >
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
