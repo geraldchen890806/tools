@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { categories, allTools } from "@/config/tools";
 import Link from "next/link";
+import { HomepageJsonLd } from "./homepage-jsonld";
 
 export default function Home() {
   const [search, setSearch] = useState("");
@@ -18,6 +19,7 @@ export default function Home() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
+      <HomepageJsonLd />
       {/* Hero */}
       <section className="text-center py-16">
         <h1 className="text-5xl font-bold tracking-tight mb-4">

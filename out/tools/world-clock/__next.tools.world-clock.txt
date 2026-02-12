@@ -1,4 +1,4 @@
 1:"$Sreact.fragment"
 2:I[39756,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"default"]
 3:I[37457,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"default"]
-0:{"buildId":"NtQnC93WuTA-7lecDzv0o","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"f68pPq4woygEZXsynMvQy","rsc":["$","$1","c",{"children":[null,[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"name\":\"世界时钟\",\"url\":\"https://anyfreetools.com/tools/world-clock\",\"description\":\"免费在线世界时钟工具，全球主要城市实时时间对照，支持时区转换\",\"applicationCategory\":\"UtilitiesApplication\",\"operatingSystem\":\"All\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"},\"browserRequirements\":\"Requires a modern web browser\"}"}}],["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]]}],"loading":null,"isPartial":false}
