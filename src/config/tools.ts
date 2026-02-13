@@ -25,6 +25,8 @@ export const categories: Category[] = [
       { id: "json-path", href: "/tools/json-path", icon: "🔎", isNew: true },
       { id: "http-status", href: "/tools/http-status", icon: "📡", isNew: true },
       { id: "cron-parser", href: "/tools/cron-parser", icon: "⏱️", isNew: true },
+      { id: "html-escape", href: "/tools/html-escape", icon: "🏷️", isNew: true },
+      { id: "sql-formatter", href: "/tools/sql-formatter", icon: "🗃️", isNew: true },
     ],
   },
   {
@@ -68,6 +70,7 @@ export const categories: Category[] = [
       { id: "color-converter", href: "/tools/color-converter", icon: "🎨" },
       { id: "number-base", href: "/tools/number-base", icon: "🔢" },
       { id: "markdown-preview", href: "/tools/markdown-preview", icon: "📝", isNew: true },
+      { id: "chinese-converter", href: "/tools/chinese-converter", icon: "🇨🇳", isNew: true },
     ],
   },
   {
@@ -78,6 +81,7 @@ export const categories: Category[] = [
       { id: "password-generator", href: "/tools/password-generator", icon: "🔑" },
       { id: "lorem-ipsum", href: "/tools/lorem-ipsum", icon: "📝" },
       { id: "qrcode", href: "/tools/qrcode", icon: "📱", isNew: true },
+      { id: "random-number", href: "/tools/random-number", icon: "🎲", isNew: true },
     ],
   },
   {
@@ -88,6 +92,7 @@ export const categories: Category[] = [
       { id: "case-converter", href: "/tools/case-converter", icon: "🔤" },
       { id: "text-diff", href: "/tools/text-diff", icon: "📄" },
       { id: "csv-to-json", href: "/tools/csv-to-json", icon: "📊", isNew: true },
+      { id: "text-dedupe", href: "/tools/text-dedupe", icon: "🧹", isNew: true },
     ],
   },
 ];
