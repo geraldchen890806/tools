@@ -165,11 +165,10 @@ describe('Lorem Ipsum 生成器', () => {
       const user = userEvent.setup();
       render(<LoremIpsumPage />);
       
-      const zhRadio = screen.getByLabelText('中文');
+      const zhRadio = screen.getByLabelText('中文') as HTMLInputElement;
       await user.click(zhRadio);
       
-      const zhRadioInput = zhRadio.querySelector('input') as HTMLInputElement;
-      expect(zhRadioInput.checked).toBe(true);
+      expect(zhRadio.checked).toBe(true);
     });
 
     test('切换语言后生成的文本应该对应语言', async () => {

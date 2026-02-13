@@ -253,6 +253,7 @@ describe('JWT 解析工具', () => {
     
     // 清空并输入新的 JWT
     await user.clear(textarea);
+    await user.click(textarea);
     await user.paste(newJWT);
     await user.click(decodeBtn);
     

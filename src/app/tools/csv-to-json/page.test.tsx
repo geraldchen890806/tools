@@ -13,7 +13,7 @@ describe('CSV 转 JSON 工具', () => {
 
   test('应该能转换简单CSV', async () => {
     const user = userEvent.setup();
-    render(<Page />);
+    const { container } = render(<Page />);
     
     const textarea = screen.getByPlaceholderText(/name,age,city/);
     await user.click(textarea);
@@ -23,8 +23,9 @@ describe('CSV 转 JSON 工具', () => {
     await user.click(convertBtn);
     
     await waitFor(() => {
-      const output = screen.getByText(/Alice/);
-      expect(output).toBeInTheDocument();
+      const pre = container.querySelector('pre');
+      expect(pre?.textContent).toContain('Alice');
+      expect(pre?.textContent).toContain('Bob');
     });
   });
 
@@ -51,7 +52,7 @@ describe('CSV 转 JSON 工具', () => {
       writable: true,
     });
     
-    render(<Page />);
+    const { container } = render(<Page />);
     
     const textarea = screen.getByPlaceholderText(/name,age,city/);
     await user.click(textarea);
@@ -59,7 +60,8 @@ describe('CSV 转 JSON 工具', () => {
     await user.click(screen.getByRole('button', { name: /转换/ }));
     
     await waitFor(() => {
-      expect(screen.getByText(/Alice/)).toBeInTheDocument();
+      const pre = container.querySelector('pre');
+      expect(pre?.textContent).toContain('Alice');
     });
     
     await user.click(screen.getByRole('button', { name: '复制' }));

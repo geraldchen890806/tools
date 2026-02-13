@@ -53,8 +53,10 @@ describe('ChineseConverter', () => {
     const convertBtn = screen.getByText('转换');
     await user.click(convertBtn);
 
-    const output = screen.getByPlaceholderText('转换结果将显示在这里...');
-    expect(output).toHaveValue('中國');
+    await waitFor(() => {
+      const output = screen.getByPlaceholderText('转换结果将显示在这里...');
+      expect(output).toHaveValue('中國');
+    });
   });
 
   it('converts traditional to simplified', async () => {
@@ -71,8 +73,10 @@ describe('ChineseConverter', () => {
     const convertBtn = screen.getByText('转换');
     await user.click(convertBtn);
 
-    const output = screen.getByPlaceholderText('转换结果将显示在这里...');
-    expect(output).toHaveValue('中国');
+    await waitFor(() => {
+      const output = screen.getByPlaceholderText('转换结果将显示在这里...');
+      expect(output).toHaveValue('中国');
+    });
   });
 
   it('converts to Taiwan traditional', async () => {
@@ -89,9 +93,11 @@ describe('ChineseConverter', () => {
     const convertBtn = screen.getByText('转换');
     await user.click(convertBtn);
 
-    const output = screen.getByPlaceholderText('转换结果将显示在这里...');
-    expect(output.value).toBeTruthy();
-    expect(output.value).not.toBe('软件');
+    await waitFor(() => {
+      const output = screen.getByPlaceholderText('转换结果将显示在这里...');
+      expect(output.value).toBeTruthy();
+      expect(output.value).not.toBe('软件');
+    });
   });
 
   it('converts to Hong Kong traditional', async () => {
@@ -108,9 +114,11 @@ describe('ChineseConverter', () => {
     const convertBtn = screen.getByText('转换');
     await user.click(convertBtn);
 
-    const output = screen.getByPlaceholderText('转换结果将显示在这里...');
-    expect(output.value).toBeTruthy();
-    expect(output.value).not.toBe('软件');
+    await waitFor(() => {
+      const output = screen.getByPlaceholderText('转换结果将显示在这里...');
+      expect(output.value).toBeTruthy();
+      expect(output.value).not.toBe('软件');
+    });
   });
 
   it('handles multi-line text', async () => {
@@ -124,8 +132,10 @@ describe('ChineseConverter', () => {
     const convertBtn = screen.getByText('转换');
     await user.click(convertBtn);
 
-    const output = screen.getByPlaceholderText('转换结果将显示在这里...');
-    expect(output).toHaveValue('中國\n文化');
+    await waitFor(() => {
+      const output = screen.getByPlaceholderText('转换结果将显示在这里...');
+      expect(output).toHaveValue('中國\n文化');
+    });
   });
 
   it('preserves punctuation and numbers', async () => {
@@ -139,8 +149,10 @@ describe('ChineseConverter', () => {
     const convertBtn = screen.getByText('转换');
     await user.click(convertBtn);
 
-    const output = screen.getByPlaceholderText('转换结果将显示在这里...');
-    expect(output).toHaveValue('中國，123！');
+    await waitFor(() => {
+      const output = screen.getByPlaceholderText('转换结果将显示在这里...');
+      expect(output).toHaveValue('中國，123！');
+    });
   });
 
   it('handles empty input', async () => {
@@ -190,10 +202,14 @@ describe('ChineseConverter', () => {
     const convertBtn = screen.getByText('转换');
     await user.click(convertBtn);
 
-    const copyBtn = screen.getByText('复制结果');
-    await user.click(copyBtn);
+    await waitFor(async () => {
+      const copyBtn = screen.getByText('复制结果');
+      await user.click(copyBtn);
+    });
 
     expect(writeTextMock).toHaveBeenCalledWith('中國');
-    expect(screen.getByText('已复制 ✓')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('已复制 ✓')).toBeInTheDocument();
+    });
   });
 });

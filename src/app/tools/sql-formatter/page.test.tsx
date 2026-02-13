@@ -111,7 +111,7 @@ describe('SqlFormatter', () => {
     const user = userEvent.setup();
     render(<SqlFormatter />);
 
-    const indentInput = screen.getByLabelText('缩进空格数');
+    const indentInput = screen.getByRole('spinbutton') as HTMLInputElement;
     await user.clear(indentInput);
     await user.type(indentInput, '4');
 

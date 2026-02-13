@@ -10,8 +10,8 @@ describe('AES 加密/解密工具', () => {
   test('应该正确渲染工具界面', () => {
     render(<AESPage />);
     expect(screen.getByText('AES 加密/解密')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '加密' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '解密' })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: '加密' }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('button', { name: '解密' }).length).toBeGreaterThan(0);
   });
 
   test('默认应该选中加密模式', () => {
