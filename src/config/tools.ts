@@ -14,16 +14,6 @@ export interface Category {
 
 export const categories: Category[] = [
   {
-    id: "text",
-    icon: "✏️",
-    tools: [
-      { id: "word-counter", href: "/tools/word-counter", icon: "🔢" },
-      { id: "case-converter", href: "/tools/case-converter", icon: "🔤" },
-      { id: "text-diff", href: "/tools/text-diff", icon: "📄" },
-      { id: "csv-to-json", href: "/tools/csv-to-json", icon: "📊", isNew: true },
-    ],
-  },
-  {
     id: "dev",
     icon: "💻",
     tools: [
@@ -35,25 +25,6 @@ export const categories: Category[] = [
       { id: "json-path", href: "/tools/json-path", icon: "🔎", isNew: true },
       { id: "http-status", href: "/tools/http-status", icon: "📡", isNew: true },
       { id: "cron-parser", href: "/tools/cron-parser", icon: "⏱️", isNew: true },
-    ],
-  },
-  {
-    id: "converter",
-    icon: "🔄",
-    tools: [
-      { id: "color-converter", href: "/tools/color-converter", icon: "🎨" },
-      { id: "number-base", href: "/tools/number-base", icon: "🔢" },
-      { id: "markdown-preview", href: "/tools/markdown-preview", icon: "📝", isNew: true },
-    ],
-  },
-  {
-    id: "generator",
-    icon: "⚡",
-    tools: [
-      { id: "uuid-generator", href: "/tools/uuid-generator", icon: "🆔" },
-      { id: "password-generator", href: "/tools/password-generator", icon: "🔑" },
-      { id: "lorem-ipsum", href: "/tools/lorem-ipsum", icon: "📝" },
-      { id: "qrcode", href: "/tools/qrcode", icon: "📱", isNew: true },
     ],
   },
   {
@@ -88,6 +59,35 @@ export const categories: Category[] = [
       { id: "image-watermark", href: "/tools/image-watermark", icon: "💧", isNew: true },
       { id: "image-merge", href: "/tools/image-merge", icon: "🧩", isNew: true },
       { id: "favicon-generator", href: "/tools/favicon-generator", icon: "⭐", isNew: true },
+    ],
+  },
+  {
+    id: "converter",
+    icon: "🔄",
+    tools: [
+      { id: "color-converter", href: "/tools/color-converter", icon: "🎨" },
+      { id: "number-base", href: "/tools/number-base", icon: "🔢" },
+      { id: "markdown-preview", href: "/tools/markdown-preview", icon: "📝", isNew: true },
+    ],
+  },
+  {
+    id: "generator",
+    icon: "⚡",
+    tools: [
+      { id: "uuid-generator", href: "/tools/uuid-generator", icon: "🆔" },
+      { id: "password-generator", href: "/tools/password-generator", icon: "🔑" },
+      { id: "lorem-ipsum", href: "/tools/lorem-ipsum", icon: "📝" },
+      { id: "qrcode", href: "/tools/qrcode", icon: "📱", isNew: true },
+    ],
+  },
+  {
+    id: "text",
+    icon: "✏️",
+    tools: [
+      { id: "word-counter", href: "/tools/word-counter", icon: "🔢" },
+      { id: "case-converter", href: "/tools/case-converter", icon: "🔤" },
+      { id: "text-diff", href: "/tools/text-diff", icon: "📄" },
+      { id: "csv-to-json", href: "/tools/csv-to-json", icon: "📊", isNew: true },
     ],
   },
 ];
