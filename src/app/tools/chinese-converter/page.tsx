@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import OpenCC from 'opencc-js';
+import * as OpenCC from 'opencc-js';
 
 export default function ChineseConverter() {
   const [input, setInput] = useState('');
@@ -22,7 +22,7 @@ export default function ChineseConverter() {
       return;
     }
 
-    const converter = OpenCC.Converter({ from: mode.split('2')[0], to: mode.split('2')[1] });
+    const converter = OpenCC.Converter({ from: mode.split('2')[0] as any, to: mode.split('2')[1] as any });
     const result = converter(input);
     setOutput(result);
   };
