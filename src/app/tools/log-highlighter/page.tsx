@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState } from "react";
 
 const levels = ["ERROR", "FATAL", "WARN", "INFO", "DEBUG"] as const;
@@ -12,6 +13,7 @@ function getLevel(line: string): string | null {
 }
 
 export default function Page() {
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [filters, setFilters] = useState<Record<string, boolean>>({ ERROR: true, FATAL: true, WARN: true, INFO: true, DEBUG: true });
 
@@ -19,7 +21,7 @@ export default function Page() {
   const lines = text.split("\n");
 
   return (
-    <ToolLayout title="日志高亮" description="按日志级别高亮显示，支持筛选">
+    <ToolLayout toolId="log-highlighter">
       <textarea value={text} onChange={e => setText(e.target.value)} placeholder="粘贴日志内容..." rows={10} style={{ width: "100%", background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, fontFamily: "monospace", resize: "vertical" }} />
       <div style={{ display: "flex", gap: 16, margin: "12px 0", flexWrap: "wrap" }}>
         {levels.map(l => (

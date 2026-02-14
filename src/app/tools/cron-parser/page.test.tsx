@@ -6,7 +6,7 @@ import Page from './page';
 describe('Cron 表达式工具', () => {
   test('应该正确渲染工具界面', () => {
     render(<Page />);
-    expect(screen.getByText('Cron 表达式')).toBeInTheDocument();
+    expect(screen.getAllByText(/Cron 表达式/).length).toBeGreaterThan(0);
     expect(screen.getByText('分')).toBeInTheDocument();
     expect(screen.getByText('时')).toBeInTheDocument();
     expect(screen.getByText('日')).toBeInTheDocument();

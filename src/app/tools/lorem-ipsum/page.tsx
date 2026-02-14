@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 const LOREM = [
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -40,6 +41,7 @@ function genEnglish(paragraphs: number): string {
 }
 
 export default function LoremIpsumPage() {
+  const { t } = useTranslation();
   const [count, setCount] = useState(3);
   const [lang, setLang] = useState<"en" | "zh">("en");
   const [output, setOutput] = useState("");
@@ -49,7 +51,7 @@ export default function LoremIpsumPage() {
   };
 
   return (
-    <ToolLayout title="Lorem Ipsum" description="生成占位文本，支持中英文">
+    <ToolLayout toolId="lorem-ipsum">
       <div className="flex flex-wrap items-center gap-4 mb-4">
         <label className="flex items-center gap-2 text-sm" style={{ color: "var(--text-secondary)" }}>
           段落数

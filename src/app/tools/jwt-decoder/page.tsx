@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 function decodeJWT(token: string) {
   const parts = token.trim().split(".");
@@ -20,6 +21,7 @@ function decodeJWT(token: string) {
 }
 
 export default function JWTDecoderPage() {
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
   const [result, setResult] = useState<{ header: object; payload: object; signature: string } | null>(null);
   const [error, setError] = useState("");
@@ -35,11 +37,11 @@ export default function JWTDecoderPage() {
   };
 
   return (
-    <ToolLayout title="JWT 解析" description="解码并查看 JWT Token 的 Header 和 Payload">
+    <ToolLayout toolId="jwt-decoder">
       <textarea
         className="w-full h-28 rounded-lg p-3 border resize-none font-mono text-sm"
         style={{ background: "var(--bg-secondary)", borderColor: "var(--border)", color: "var(--text-primary)" }}
-        placeholder="粘贴 JWT Token..."
+        placeholder={t("toolPages.jwt-decoder.inputPlaceholder")}
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />

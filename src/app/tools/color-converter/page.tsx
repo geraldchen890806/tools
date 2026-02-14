@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 function hexToRgb(hex: string) {
   const m = hex.replace("#", "").match(/.{2}/g);
@@ -26,6 +27,7 @@ function rgbToHsl(r: number, g: number, b: number) {
 }
 
 export default function ColorConverter() {
+  const { t } = useTranslation();
   const [hex, setHex] = useState("#6366f1");
   const [textInput, setTextInput] = useState("#6366f1");
 
@@ -50,7 +52,7 @@ export default function ColorConverter() {
   ];
 
   return (
-    <ToolLayout title="颜色转换" description="在 HEX、RGB、HSL 之间转换颜色">
+    <ToolLayout toolId="color-converter">
       <div className="flex gap-4 items-start">
         <input type="color" value={hex} onChange={e => { setHex(e.target.value); setTextInput(e.target.value); }} className="w-12 h-12 rounded cursor-pointer border-0 p-0" />
         <input value={textInput} onChange={e => handleTextChange(e.target.value)} placeholder="#6366f1" className="flex-1 rounded-lg p-3" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }} />
@@ -61,7 +63,7 @@ export default function ColorConverter() {
           <div key={f.label} className="flex items-center gap-3 p-3 rounded-lg" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
             <span className="w-10 text-sm font-medium" style={{ color: "var(--text-secondary)" }}>{f.label}</span>
             <span className="flex-1 font-mono" style={{ color: "var(--text-primary)" }}>{f.value}</span>
-            <button onClick={() => copy(f.value)} className="px-4 py-2 rounded-lg text-white text-sm" style={{ background: "var(--accent)" }}>复制</button>
+            <button onClick={() => copy(f.value)} className="px-4 py-2 rounded-lg text-white text-sm" style={{ background: "var(--accent)" }}>{t("common.copy")}</button>
           </div>
         ))}
       </div>

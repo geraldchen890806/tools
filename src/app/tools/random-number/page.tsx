@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 export default function RandomNumber() {
+  const { t } = useTranslation();
   const [min, setMin] = useState('1');
   const [max, setMax] = useState('100');
   const [count, setCount] = useState('1');
@@ -23,12 +26,12 @@ export default function RandomNumber() {
     }
 
     if (minNum >= maxNum) {
-      setError('最小值必须小于最大值');
+      setError('{t("toolPages.random-number.min")}必须小于{t("toolPages.random-number.max")}');
       return;
     }
 
     if (countNum < 1 || countNum > 1000) {
-      setError('生成数量必须在 1-1000 之间');
+      setError('{t("toolPages.random-number.count")}必须在 1-1000 之间');
       return;
     }
 
@@ -76,8 +79,9 @@ export default function RandomNumber() {
         {/* Min/Max */}
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block mb-2 font-semibold">最小值</label>
+            <label htmlFor="min-input" className="block mb-2 font-semibold">{t("toolPages.random-number.min")}</label>
             <input
+              id="min-input"
               type="number"
               value={min}
               onChange={(e) => setMin(e.target.value)}
@@ -85,8 +89,9 @@ export default function RandomNumber() {
             />
           </div>
           <div>
-            <label className="block mb-2 font-semibold">最大值</label>
+            <label htmlFor="max-input" className="block mb-2 font-semibold">{t("toolPages.random-number.max")}</label>
             <input
+              id="max-input"
               type="number"
               value={max}
               onChange={(e) => setMax(e.target.value)}
@@ -97,8 +102,9 @@ export default function RandomNumber() {
 
         {/* Count */}
         <div className="mb-4">
-          <label className="block mb-2 font-semibold">生成数量</label>
+          <label htmlFor="count-input" className="block mb-2 font-semibold">{t("toolPages.random-number.count")}</label>
           <input
+            id="count-input"
             type="number"
             value={count}
             onChange={(e) => setCount(e.target.value)}

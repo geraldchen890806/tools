@@ -1,10 +1,12 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState } from "react";
 
 const sizes = [150, 200, 300, 400];
 
 export default function Page() {
+  const { t } = useTranslation();
   const [text, setText] = useState("");
   const [size, setSize] = useState(300);
   const [url, setUrl] = useState("");
@@ -26,14 +28,14 @@ export default function Page() {
   };
 
   return (
-    <ToolLayout title="二维码生成" description="输入文本或 URL 生成二维码">
+    <ToolLayout toolId="qrcode">
       <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
-        <input value={text} onChange={e => setText(e.target.value)} placeholder="输入文本或 URL" onKeyDown={e => e.key === "Enter" && generate()} style={{ flex: 1, minWidth: 200, background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12 }} />
+        <input value={text} onChange={e => setText(e.target.value)} placeholder={t("toolPages.qrcode.inputPlaceholder")} onKeyDown={e => e.key === "Enter" && generate()} style={{ flex: 1, minWidth: 200, background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12 }} />
         <select value={size} onChange={e => setSize(Number(e.target.value))} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: "8px 12px" }}>
           {sizes.map(s => <option key={s} value={s}>{s}x{s}</option>)}
         </select>
-        <button onClick={generate} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>生成</button>
-        {url && <button onClick={download} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>下载</button>}
+        <button onClick={generate} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>{t("common.generate")}</button>
+        {url && <button onClick={download} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>{t("common.download")}</button>}
       </div>
       {url && (
         <div style={{ display: "flex", justifyContent: "center", padding: 24, background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 8 }}>

@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 const inputStyle: React.CSSProperties = { background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" };
 const btnStyle: React.CSSProperties = { background: "var(--accent)", color: "white" };
 
 export default function TimestampPage() {
+  const { t } = useTranslation();
   const [now, setNow] = useState(Date.now());
   const [tsInput, setTsInput] = useState("");
   const [dateInput, setDateInput] = useState("");
@@ -23,29 +25,29 @@ export default function TimestampPage() {
     if (isNaN(n)) { setTsResult("无效时间戳"); return; }
     const ms = tsInput.length > 10 ? n : n * 1000;
     const d = new Date(ms);
-    setTsResult(d.toLocaleString() + `\nISO: ${d.toISOString()}\n秒: ${Math.floor(ms / 1000)}\n毫秒: ${ms}`);
+    setTsResult(d.toLocaleString() + `\nISO: ${d.toISOString()}\n{t("toolPages.timestamp.seconds")}: ${Math.floor(ms / 1000)}\n毫{t("toolPages.timestamp.seconds")}: ${ms}`);
   };
 
   const convertDate = () => {
     const d = new Date(dateInput);
     if (isNaN(d.getTime())) { setDateResult("无效日期"); return; }
-    setDateResult(`秒: ${Math.floor(d.getTime() / 1000)}\n毫秒: ${d.getTime()}`);
+    setDateResult(`{t("toolPages.timestamp.seconds")}: ${Math.floor(d.getTime() / 1000)}\n毫{t("toolPages.timestamp.seconds")}: ${d.getTime()}`);
   };
 
   const copy = (t: string) => navigator.clipboard.writeText(t);
   const nowDate = new Date(now);
 
   return (
-    <ToolLayout title="时间戳转换" description="Unix 时间戳与日期时间互转">
+    <ToolLayout toolId="timestamp">
       <div className="space-y-6">
         <div className="rounded-lg p-4" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
-          <div className="text-sm mb-1" style={{ color: "var(--text-secondary)" }}>当前时间</div>
+          <div className="text-sm mb-1" style={{ color: "var(--text-secondary)" }}>{t("toolPages.timestamp.currentTime")}</div>
           <div className="text-xl font-mono" style={{ color: "var(--text-primary)" }}>{nowDate.toLocaleString()}</div>
           <div className="flex gap-4 mt-1 text-sm font-mono" style={{ color: "var(--text-secondary)" }}>
-            <span>秒: {Math.floor(now / 1000)}</span>
-            <span>毫秒: {now}</span>
-            <button onClick={() => copy(String(Math.floor(now / 1000)))} className="px-2 py-0.5 rounded text-xs" style={btnStyle}>复制秒</button>
-            <button onClick={() => copy(String(now))} className="px-2 py-0.5 rounded text-xs" style={btnStyle}>复制毫秒</button>
+            <span>{t("toolPages.timestamp.seconds")}: {Math.floor(now / 1000)}</span>
+            <span>{t("toolPages.timestamp.milliseconds")}: {now}</span>
+            <button onClick={() => copy(String(Math.floor(now / 1000)))} className="px-2 py-0.5 rounded text-xs" style={btnStyle}>{t("toolPages.timestamp.copySeconds")}</button>
+            <button onClick={() => copy(String(now))} className="px-2 py-0.5 rounded text-xs" style={btnStyle}>{t("toolPages.timestamp.copyMilliseconds")}</button>
           </div>
         </div>
 

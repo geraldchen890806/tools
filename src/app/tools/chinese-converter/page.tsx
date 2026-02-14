@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 import * as OpenCC from 'opencc-js';
+import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 export default function ChineseConverter() {
+  const { t } = useTranslation();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<'s2t' | 't2s' | 's2tw' | 's2hk'>('s2t');

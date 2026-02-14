@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState } from "react";
 
 const inputStyle = "w-full rounded-lg p-3 border";
@@ -13,6 +14,7 @@ function formatSize(bytes: number) {
 }
 
 export default function ImageConvertPage() {
+  const { t } = useTranslation();
   const [imgSrc, setImgSrc] = useState("");
   const [origType, setOrigType] = useState("");
   const [origSize, setOrigSize] = useState(0);
@@ -60,7 +62,7 @@ export default function ImageConvertPage() {
   };
 
   return (
-    <ToolLayout title="图片格式转换" description="上传图片，转换为 JPEG、PNG 或 WebP 格式">
+    <ToolLayout toolId="image-convert">
       <div className="space-y-4">
         <input type="file" accept="image/*" onChange={onFile} className={inputStyle} style={inputCss} />
         {imgSrc && (
@@ -80,9 +82,9 @@ export default function ImageConvertPage() {
         )}
         {resultUrl && (
           <div className="space-y-2">
-            <p style={{ color: "var(--text-secondary)" }}>转换后: {targetFormat} ({formatSize(resultSize)}) — {origSize > resultSize ? "减小" : "增大"} {formatSize(Math.abs(origSize - resultSize))}</p>
+            <p style={{ color: "var(--text-secondary)" }}>{t("toolPages.image-convert.converted")}: {targetFormat} ({formatSize(resultSize)}) — {origSize > resultSize ? t("toolPages.image-convert.reduced") : t("toolPages.image-convert.increased")} {formatSize(Math.abs(origSize - resultSize))}</p>
             <img src={resultUrl} alt="converted" className="rounded-lg border" style={{ borderColor: "var(--border)", maxWidth: 400 }} />
-            <button onClick={download} className="px-4 py-2 rounded-lg" style={btnStyle}>下载</button>
+            <button onClick={download} className="px-4 py-2 rounded-lg" style={btnStyle}>{t("common.download")}</button>
           </div>
         )}
       </div>

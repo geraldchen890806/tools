@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 interface Note {
   id: string;
@@ -25,6 +26,7 @@ function load(): Note[] {
 function save(notes: Note[]) { localStorage.setItem(STORAGE_KEY, JSON.stringify(notes)); }
 
 export default function NotesPage() {
+  const { t } = useTranslation();
   const [notes, setNotes] = useState<Note[]>([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -95,18 +97,18 @@ export default function NotesPage() {
   if (!mounted) return null;
 
   return (
-    <ToolLayout title="备忘提醒" description="创建备忘录，设置提醒时间，浏览器通知提醒">
+    <ToolLayout toolId="notes">
       <div style={cardStyle}>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <input value={title} onChange={e => setTitle(e.target.value)} placeholder="标题" style={inputStyle} />
-          <textarea value={content} onChange={e => setContent(e.target.value)} placeholder="内容（可选）" rows={3} style={{ ...inputStyle, resize: "vertical" }} />
+          <input value={title} onChange={e => setTitle(e.target.value)} placeholder={t("toolPages.notes.titlePlaceholder")} style={inputStyle} />
+          <textarea value={content} onChange={e => setContent(e.target.value)} placeholder={t("toolPages.notes.contentPlaceholder")} rows={3} style={{ ...inputStyle, resize: "vertical" }} />
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
             <label style={{ color: "var(--text-secondary)", fontSize: 13, whiteSpace: "nowrap" }}>提醒时间：</label>
             <input type="datetime-local" value={reminder} onChange={e => setReminder(e.target.value)} style={{ ...inputStyle, width: "auto", flex: 1, minWidth: 200 }} />
           </div>
           <div style={{ display: "flex", gap: 8 }}>
             <button onClick={submit} style={btnStyle}>{editId ? "保存修改" : "添加备忘"}</button>
-            {editId && <button onClick={cancelEdit} style={{ ...btnStyle, background: "var(--bg-primary)", color: "var(--text-primary)", border: "1px solid var(--border)" }}>取消</button>}
+            {editId && <button onClick={cancelEdit} style={{ ...btnStyle, background: "var(--bg-primary)", color: "var(--text-primary)", border: "1px solid var(--border)" }}>{t("toolPages.notes.cancel")}</button>}
           </div>
         </div>
       </div>
@@ -132,8 +134,8 @@ export default function NotesPage() {
               </div>
             </div>
             <div style={{ display: "flex", gap: 6 }}>
-              <button onClick={() => startEdit(n)} style={{ background: "transparent", border: "1px solid var(--border)", borderRadius: 4, padding: "4px 8px", cursor: "pointer", color: "var(--text-secondary)", fontSize: 12 }}>编辑</button>
-              <button onClick={() => remove(n.id)} style={{ background: "transparent", border: "1px solid var(--border)", borderRadius: 4, padding: "4px 8px", cursor: "pointer", color: "#e55", fontSize: 12 }}>删除</button>
+              <button onClick={() => startEdit(n)} style={{ background: "transparent", border: "1px solid var(--border)", borderRadius: 4, padding: "4px 8px", cursor: "pointer", color: "var(--text-secondary)", fontSize: 12 }}>{t("toolPages.notes.editNote")}</button>
+              <button onClick={() => remove(n.id)} style={{ background: "transparent", border: "1px solid var(--border)", borderRadius: 4, padding: "4px 8px", cursor: "pointer", color: "#e55", fontSize: 12 }}>{t("toolPages.notes.deleteNote")}</button>
             </div>
           </div>
         </div>

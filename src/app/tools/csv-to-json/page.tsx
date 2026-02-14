@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState } from "react";
 
 function parseCSV(text: string): string[][] {
@@ -30,6 +31,7 @@ function parseCSV(text: string): string[][] {
 }
 
 export default function Page() {
+  const { t } = useTranslation();
   const [csv, setCsv] = useState("");
   const [json, setJson] = useState("");
 
@@ -50,7 +52,7 @@ export default function Page() {
   const copy = () => { navigator.clipboard.writeText(json); };
 
   return (
-    <ToolLayout title="CSV 转 JSON" description="将 CSV 数据转换为 JSON 格式">
+    <ToolLayout toolId="csv-to-json">
       <div style={{ display: "flex", gap: 16, minHeight: 400 }}>
         <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
           <label style={{ color: "var(--text-secondary)", marginBottom: 8 }}>CSV 输入（第一行为表头）</label>
@@ -58,7 +60,7 @@ export default function Page() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8, justifyContent: "center" }}>
           <button onClick={convert} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>转换 →</button>
-          <button onClick={copy} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>复制</button>
+          <button onClick={copy} style={{ background: "var(--accent)", color: "white", padding: "8px 16px", borderRadius: 8, border: "none", cursor: "pointer" }}>{t("common.copy")}</button>
         </div>
         <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
           <label style={{ color: "var(--text-secondary)", marginBottom: 8 }}>JSON 输出</label>

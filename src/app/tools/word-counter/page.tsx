@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 export default function WordCounter() {
+  const { t } = useTranslation();
   const [text, setText] = useState("");
 
   const chars = text.length;
@@ -13,15 +15,15 @@ export default function WordCounter() {
   const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
 
   const stats = [
-    { label: "字符数", value: chars },
-    { label: "单词数", value: words },
-    { label: "中文字符", value: chinese },
-    { label: "行数", value: lines },
+    { label: t("toolPages.word-counter.characters"), value: chars },
+    { label: t("toolPages.word-counter.words"), value: words },
+    { label: t("toolPages.word-counter.chineseChars"), value: chinese },
+    { label: t("toolPages.word-counter.lines"), value: lines },
     { label: "段落数", value: paragraphs },
   ];
 
   return (
-    <ToolLayout title="字数统计" description="实时统计字符数、单词数、中文字符数、行数和段落数">
+    <ToolLayout toolId="word-counter">
       <textarea
         value={text}
         onChange={e => setText(e.target.value)}

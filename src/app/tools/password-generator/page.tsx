@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 const inputStyle: React.CSSProperties = { background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" };
 const btnStyle: React.CSSProperties = { background: "var(--accent)", color: "white" };
@@ -23,6 +24,7 @@ function getStrength(pw: string): { label: string; color: string; percent: numbe
 }
 
 export default function PasswordGeneratorPage() {
+  const { t } = useTranslation();
   const [length, setLength] = useState(16);
   const [upper, setUpper] = useState(true);
   const [lower, setLower] = useState(true);
@@ -45,10 +47,10 @@ export default function PasswordGeneratorPage() {
   const strength = password ? getStrength(password) : null;
 
   return (
-    <ToolLayout title="密码生成器" description="生成安全随机密码">
+    <ToolLayout toolId="password-generator">
       <div className="space-y-4">
         <div>
-          <label className="text-sm" style={{ color: "var(--text-secondary)" }}>长度: {length}</label>
+          <label className="text-sm" style={{ color: "var(--text-secondary)" }}>{t("toolPages.password-generator.length")}: {length}</label>
           <input type="range" min={8} max={64} value={length} onChange={e => setLength(Number(e.target.value))} className="w-full" />
         </div>
         <div className="flex gap-4 flex-wrap">
@@ -64,12 +66,12 @@ export default function PasswordGeneratorPage() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 p-3 rounded-lg" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
               <span className="flex-1 font-mono break-all" style={{ color: "var(--text-primary)" }}>{password}</span>
-              <button onClick={() => navigator.clipboard.writeText(password)} className="px-3 py-1 rounded text-sm shrink-0" style={btnStyle}>复制</button>
+              <button onClick={() => navigator.clipboard.writeText(password)} className="px-3 py-1 rounded text-sm shrink-0" style={btnStyle}>{t("common.copy")}</button>
             </div>
             {strength && (
               <div>
                 <div className="flex items-center gap-2 text-sm">
-                  <span style={{ color: "var(--text-secondary)" }}>强度:</span>
+                  <span style={{ color: "var(--text-secondary)" }}>{t("toolPages.password-generator.strength")}:</span>
                   <span style={{ color: strength.color }}>{strength.label}</span>
                 </div>
                 <div className="w-full h-2 rounded-full mt-1" style={{ background: "var(--border)" }}>

@@ -2,8 +2,10 @@
 
 import { useState, useRef } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 export default function ImageToBase64Page() {
+  const { t } = useTranslation();
   const [base64, setBase64] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
   const [charCount, setCharCount] = useState(0);
@@ -30,7 +32,7 @@ export default function ImageToBase64Page() {
   };
 
   return (
-    <ToolLayout title="图片转 Base64" description="图片与 Base64 字符串互转">
+    <ToolLayout toolId="image-to-base64">
       {/* Image to Base64 */}
       <h3 className="font-semibold mb-3">图片 → Base64</h3>
       <div
@@ -82,7 +84,7 @@ export default function ImageToBase64Page() {
         <textarea
           className="w-full h-28 rounded-lg p-3 border resize-none font-mono text-xs"
           style={{ background: "var(--bg-secondary)", borderColor: "var(--border)", color: "var(--text-primary)" }}
-          placeholder="粘贴 Base64 字符串..."
+          placeholder={t("toolPages.image-to-base64.base64Placeholder")}
           value={reverseInput}
           onChange={(e) => setReverseInput(e.target.value)}
         />

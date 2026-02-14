@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 async function computeHash(algo: string, text: string) {
   const data = new TextEncoder().encode(text);
@@ -19,6 +20,7 @@ const algos = [
 ];
 
 export default function HashPage() {
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
   const [results, setResults] = useState<Record<string, string>>({});
 
@@ -33,11 +35,11 @@ export default function HashPage() {
   const copy = (text: string) => navigator.clipboard.writeText(text);
 
   return (
-    <ToolLayout title="Hash 计算" description="SHA-1、SHA-256、SHA-384、SHA-512 哈希值计算">
+    <ToolLayout toolId="hash">
       <textarea
         className="w-full h-32 rounded-lg p-3 border resize-none"
         style={{ background: "var(--bg-secondary)", borderColor: "var(--border)", color: "var(--text-primary)" }}
-        placeholder="输入要计算哈希的文本..."
+        placeholder={t("toolPages.hash.inputPlaceholder")}
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
@@ -46,7 +48,7 @@ export default function HashPage() {
         className="mt-3 px-4 py-2 rounded-lg text-white"
         style={{ background: "var(--accent)" }}
       >
-        计算
+        {t("common.generate")}
       </button>
 
       {Object.keys(results).length > 0 && (
@@ -68,7 +70,7 @@ export default function HashPage() {
                   className="px-3 py-2 rounded-lg text-white text-sm"
                   style={{ background: "var(--accent)" }}
                 >
-                  复制
+                  {t("common.copy")}
                 </button>
               </div>
             </div>

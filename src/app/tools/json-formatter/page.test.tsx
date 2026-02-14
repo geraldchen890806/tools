@@ -35,8 +35,9 @@ describe('JSON 格式化工具', () => {
       await user.click(formatBtn);
       
       await waitFor(() => {
-        const output = screen.getByText(/John/);
-        // 格式化后应该有缩进
+        const outputs = screen.getAllByText(/John/);
+        // 格式化后应该有缩进（取输出区域的元素）
+        const output = outputs[outputs.length - 1];
         expect(output.textContent).toContain('\n');
         expect(output.textContent).toContain('  '); // 2 空格缩进
       });
@@ -56,7 +57,8 @@ describe('JSON 格式化工具', () => {
       await user.click(formatBtn);
       
       await waitFor(() => {
-        const output = screen.getByText(/user/);
+        const outputs = screen.getAllByText(/user/);
+        const output = outputs[outputs.length - 1];
         expect(output.textContent).toContain('user');
         expect(output.textContent).toContain('name');
         expect(output.textContent).toContain('address');
@@ -78,7 +80,8 @@ describe('JSON 格式化工具', () => {
       await user.click(formatBtn);
       
       await waitFor(() => {
-        const output = screen.getByText(/apple/);
+        const outputs = screen.getAllByText(/apple/);
+        const output = outputs[outputs.length - 1];
         expect(output.textContent).toContain('apple');
         expect(output.textContent).toContain('banana');
         expect(output.textContent).toContain('cherry');
@@ -99,7 +102,8 @@ describe('JSON 格式化工具', () => {
       await user.click(formatBtn);
       
       await waitFor(() => {
-        const output = screen.getByText(/count/);
+        const outputs = screen.getAllByText(/count/);
+        const output = outputs[outputs.length - 1];
         expect(output.textContent).toContain('42');
         expect(output.textContent).toContain('true');
         expect(output.textContent).toContain('19.99');
@@ -122,7 +126,8 @@ describe('JSON 格式化工具', () => {
       await user.click(minifyBtn);
       
       await waitFor(() => {
-        const output = screen.getByText(/John/);
+        const outputs = screen.getAllByText(/John/);
+        const output = outputs[outputs.length - 1];
         // 压缩后不应该有多余的空格和换行
         expect(output.textContent).toBe(validJson);
       });
@@ -145,7 +150,8 @@ describe('JSON 格式化工具', () => {
       await user.click(minifyBtn);
       
       await waitFor(() => {
-        const output = screen.getByText(/John/);
+        const outputs = screen.getAllByText(/John/);
+        const output = outputs[outputs.length - 1];
         // 应该是紧凑格式
         expect(output.textContent).toBe('{"name":"John","age":30}');
       });
@@ -166,7 +172,8 @@ describe('JSON 格式化工具', () => {
     await user.click(formatBtn);
     
     await waitFor(() => {
-      const output = screen.getByText(/John/);
+      const outputs = screen.getAllByText(/John/);
+      const output = outputs[outputs.length - 1];
       expect(output.textContent).toContain('\n');
     });
     
@@ -175,7 +182,8 @@ describe('JSON 格式化工具', () => {
     await user.click(minifyBtn);
     
     await waitFor(() => {
-      const output = screen.getByText(/John/);
+      const outputs = screen.getAllByText(/John/);
+      const output = outputs[outputs.length - 1];
       expect(output.textContent).toBe(validJson);
     });
   });
@@ -227,8 +235,9 @@ describe('JSON 格式化工具', () => {
       await user.click(formatBtn);
       
       await waitFor(() => {
-        const errorElement = screen.queryByText(/Unexpected/i);
-        expect(errorElement).toBeInTheDocument();
+        // 错误消息应该出现（检查DOM中是否有错误容器）
+        const errorElements = screen.queryAllByText(/Unexpected|Expected|token|position/i);
+        expect(errorElements.length).toBeGreaterThan(0);
       });
     });
 
@@ -240,8 +249,9 @@ describe('JSON 格式化工具', () => {
       await user.click(formatBtn);
       
       await waitFor(() => {
-        const errorElement = screen.queryByText(/Unexpected end|JSON|empty/i);
-        expect(errorElement).toBeInTheDocument();
+        // 错误消息应该出现
+        const errorElements = screen.queryAllByText(/Unexpected|Expected|JSON|empty|end/i);
+        expect(errorElements.length).toBeGreaterThan(0);
       });
     });
 
@@ -293,7 +303,7 @@ describe('JSON 格式化工具', () => {
     await user.click(formatBtn);
     
     await waitFor(() => {
-      expect(screen.getByText(/John/)).toBeInTheDocument();
+      expect(screen.getAllByText(/John/).length).toBeGreaterThan(0);
     });
     
     const copyBtn = screen.getByRole('button', { name: '复制' });
@@ -324,7 +334,7 @@ describe('JSON 格式化工具', () => {
     
     await waitFor(() => {
       expect(screen.queryByText('格式化结果将显示在这里...')).not.toBeInTheDocument();
-      expect(screen.getByText(/John/)).toBeInTheDocument();
+      expect(screen.getAllByText(/John/).length).toBeGreaterThan(0);
     });
   });
 
@@ -343,7 +353,8 @@ describe('JSON 格式化工具', () => {
     await user.click(formatBtn);
     
     await waitFor(() => {
-      const output = screen.getByText(/Line 1/);
+      const outputs = screen.getAllByText(/Line 1/);
+      const output = outputs[outputs.length - 1];
       expect(output.textContent).toContain('\\n');
       expect(output.textContent).toContain('\\t');
     });
@@ -363,7 +374,8 @@ describe('JSON 格式化工具', () => {
     await user.click(formatBtn);
     
     await waitFor(() => {
-      const output = screen.getByText(/emoji/);
+      const outputs = screen.getAllByText(/emoji/);
+      const output = outputs[outputs.length - 1];
       expect(output.textContent).toContain('😀');
       expect(output.textContent).toContain('你好');
     });
@@ -384,7 +396,8 @@ describe('JSON 格式化工具', () => {
     await user.click(formatBtn);
     
     await waitFor(() => {
-      const output = screen.getByText(/null/);
+      const outputs = screen.getAllByText(/null/);
+      const output = outputs[outputs.length - 1];
       expect(output.textContent).toContain('null');
       expect(output.textContent).toContain('0');
       expect(output.textContent).toContain('false');

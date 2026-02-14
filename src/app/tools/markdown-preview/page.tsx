@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState } from "react";
 
 function md2html(md: string): string {
@@ -55,9 +56,10 @@ const hello = "world";
 普通段落文本`;
 
 export default function Page() {
+  const { t } = useTranslation();
   const [text, setText] = useState(sample);
   return (
-    <ToolLayout title="Markdown 预览" description="实时 Markdown 预览">
+    <ToolLayout toolId="markdown-preview">
       <div style={{ display: "flex", gap: 16, minHeight: 500 }}>
         <textarea value={text} onChange={e => setText(e.target.value)} style={{ flex: 1, background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, fontFamily: "monospace", resize: "none", fontSize: 14 }} />
         <div style={{ flex: 1, background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 8, padding: 16, overflow: "auto", color: "var(--text-primary)", lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: md2html(text) }} />

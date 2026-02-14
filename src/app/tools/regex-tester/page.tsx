@@ -2,8 +2,10 @@
 
 import { useState, useMemo } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 export default function RegexTester() {
+  const { t } = useTranslation();
   const [pattern, setPattern] = useState("");
   const [flags, setFlags] = useState("g");
   const [text, setText] = useState("");
@@ -31,23 +33,23 @@ export default function RegexTester() {
   const inputStyle = { background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" };
 
   return (
-    <ToolLayout title="正则测试" description="实时测试正则表达式，查看匹配结果">
+    <ToolLayout toolId="regex-tester">
       <div className="flex gap-4">
         <div className="flex-1">
           <label className="text-sm mb-1 block" style={{ color: "var(--text-secondary)" }}>正则表达式</label>
-          <input value={pattern} onChange={e => setPattern(e.target.value)} placeholder="输入正则..." className="w-full rounded-lg p-3" style={inputStyle} />
+          <input value={pattern} onChange={e => setPattern(e.target.value)} placeholder={t("toolPages.regex-tester.patternPlaceholder")} className="w-full rounded-lg p-3" style={inputStyle} />
         </div>
         <div className="w-24">
-          <label className="text-sm mb-1 block" style={{ color: "var(--text-secondary)" }}>Flags</label>
+          <label className="text-sm mb-1 block" style={{ color: "var(--text-secondary)" }}>{t("toolPages.regex-tester.flags")}</label>
           <input value={flags} onChange={e => setFlags(e.target.value)} className="w-full rounded-lg p-3" style={inputStyle} />
         </div>
       </div>
       {error && <div className="mt-2 text-sm" style={{ color: "#ef4444" }}>{error}</div>}
-      <textarea value={text} onChange={e => setText(e.target.value)} placeholder="输入测试文本..." rows={8} className="w-full rounded-lg p-3 mt-4" style={inputStyle} />
+      <textarea value={text} onChange={e => setText(e.target.value)} placeholder={t("toolPages.regex-tester.textPlaceholder")} rows={8} className="w-full rounded-lg p-3 mt-4" style={inputStyle} />
       {pattern && text && !error && (
         <div className="mt-4 space-y-4">
           <div className="rounded-lg p-3" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
-            <div className="text-sm mb-2" style={{ color: "var(--text-secondary)" }}>高亮结果</div>
+            <div className="text-sm mb-2" style={{ color: "var(--text-secondary)" }}>{t("toolPages.regex-tester.highlightResult")}</div>
             <div className="font-mono text-sm whitespace-pre-wrap" style={{ color: "var(--text-primary)" }} dangerouslySetInnerHTML={{ __html: highlighted }} />
           </div>
           <div className="rounded-lg p-3" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
@@ -58,7 +60,7 @@ export default function RegexTester() {
                   <span key={i} className="px-2 py-1 rounded text-sm font-mono" style={{ background: "var(--accent)", color: "white" }}>{m}</span>
                 ))}
               </div>
-            ) : <div className="text-sm" style={{ color: "var(--text-secondary)" }}>无匹配</div>}
+            ) : <div className="text-sm" style={{ color: "var(--text-secondary)" }}>{t("toolPages.regex-tester.noMatch")}</div>}
           </div>
         </div>
       )}

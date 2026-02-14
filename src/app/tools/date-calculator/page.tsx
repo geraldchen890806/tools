@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 const inputStyle: React.CSSProperties = { background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", padding: "8px 12px", borderRadius: 6, width: "100%" };
 const btnStyle: React.CSSProperties = { background: "var(--accent)", color: "white", padding: "8px 20px", borderRadius: 6, border: "none", cursor: "pointer", fontWeight: 500 };
@@ -23,6 +24,7 @@ function dateDiff(a: Date, b: Date) {
 }
 
 export default function DateCalculatorPage() {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<"diff" | "add" | "weekday" | "countdown">("diff");
   const [d1, setD1] = useState(today());
   const [d2, setD2] = useState(today());
@@ -82,7 +84,7 @@ export default function DateCalculatorPage() {
   };
 
   return (
-    <ToolLayout title="日期计算器" description="计算日期差、加减天数、查询星期几、倒计时">
+    <ToolLayout toolId="date-calculator">
       <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
         {tabs.map(t => (
           <button key={t.key} onClick={() => setTab(t.key)} style={{ ...btnStyle, background: tab === t.key ? "var(--accent)" : "var(--bg-card)", color: tab === t.key ? "white" : "var(--text-primary)", border: "1px solid var(--border)" }}>
@@ -123,7 +125,7 @@ export default function DateCalculatorPage() {
           <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
             <input type="date" value={addBase} onChange={e => setAddBase(e.target.value)} style={{ ...inputStyle, width: "auto", flex: 1, minWidth: 150 }} />
             <span style={{ color: "var(--text-secondary)" }}>+</span>
-            <input type="number" value={addDays} onChange={e => setAddDays(e.target.value)} style={{ ...inputStyle, width: 100, flex: "none" }} placeholder="天数" />
+            <input type="number" value={addDays} onChange={e => setAddDays(e.target.value)} style={{ ...inputStyle, width: 100, flex: "none" }} placeholder={t("toolPages.date-calculator.daysPlaceholder")} />
             <span style={{ color: "var(--text-secondary)", fontSize: 13 }}>（负数为减）</span>
           </div>
           {addResult && (

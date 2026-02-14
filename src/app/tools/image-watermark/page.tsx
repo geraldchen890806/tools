@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState, useRef } from "react";
 
 const inputStyle = "w-full rounded-lg p-3 border";
@@ -7,6 +8,7 @@ const inputCss: React.CSSProperties = { background: "var(--bg-secondary)", borde
 const btnStyle: React.CSSProperties = { background: "var(--accent)", color: "#fff" };
 
 export default function ImageWatermarkPage() {
+  const { t } = useTranslation();
   const [imgSrc, setImgSrc] = useState("");
   const [text, setText] = useState("Watermark");
   const [fontSize, setFontSize] = useState(36);
@@ -78,7 +80,7 @@ export default function ImageWatermarkPage() {
   };
 
   return (
-    <ToolLayout title="图片水印" description="为图片添加文字水印，支持自定义样式和位置">
+    <ToolLayout toolId="image-watermark">
       <div className="space-y-4">
         <input type="file" accept="image/*" onChange={onFile} className={inputStyle} style={inputCss} />
         {imgSrc && (
@@ -98,15 +100,22 @@ export default function ImageWatermarkPage() {
                 <input type="range" min={0} max={1} step={0.05} value={opacity} onChange={(e) => setOpacity(Number(e.target.value))} className="w-full" />
               </div>
               <div>
-                <label className="text-sm" style={{ color: "var(--text-secondary)" }}>位置</label>
+                <label className="text-sm" style={{ color: "var(--text-secondary)" }}>{t("toolPages.image-watermark.position")}</label>
                 <select className={inputStyle} style={inputCss} value={position} onChange={(e) => setPosition(e.target.value)}>
-                  {["左上", "右上", "左下", "右下", "居中", "平铺"].map((p) => <option key={p} value={p}>{p}</option>)}
+                  {[
+                    { value: "左上", label: t("toolPages.image-watermark.topLeft") },
+                    { value: "右上", label: t("toolPages.image-watermark.topRight") },
+                    { value: "左下", label: t("toolPages.image-watermark.bottomLeft") },
+                    { value: "右下", label: t("toolPages.image-watermark.bottomRight") },
+                    { value: "居中", label: t("toolPages.image-watermark.center") },
+                    { value: "平铺", label: t("toolPages.image-watermark.tile") }
+                  ].map((p) => <option key={p.value} value={p.value}>{p.label}</option>)}
                 </select>
               </div>
             </div>
             <div className="flex gap-2">
-              <button onClick={preview} className="px-4 py-2 rounded-lg" style={btnStyle}>预览水印</button>
-              {resultUrl && <button onClick={download} className="px-4 py-2 rounded-lg" style={btnStyle}>下载</button>}
+              <button onClick={preview} className="px-4 py-2 rounded-lg" style={btnStyle}>{t("toolPages.image-watermark.previewWatermark")}</button>
+              {resultUrl && <button onClick={download} className="px-4 py-2 rounded-lg" style={btnStyle}>{t("common.download")}</button>}
             </div>
           </>
         )}

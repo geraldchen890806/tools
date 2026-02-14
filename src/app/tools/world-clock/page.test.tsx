@@ -34,6 +34,7 @@ describe('世界时钟工具', () => {
 
   test('应该显示与北京的时差', () => {
     render(<Page />);
-    expect(screen.getByText('同北京')).toBeInTheDocument();
+    const diffElements = screen.getAllByText(/同北京/);
+    expect(diffElements.length).toBeGreaterThan(0);
   });
 });

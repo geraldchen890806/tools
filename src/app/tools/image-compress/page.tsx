@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 function formatSize(bytes: number) {
   if (bytes < 1024) return bytes + " B";
@@ -10,6 +11,7 @@ function formatSize(bytes: number) {
 }
 
 export default function ImageCompressPage() {
+  const { t } = useTranslation();
   const [original, setOriginal] = useState<{ url: string; size: number; name: string } | null>(null);
   const [compressed, setCompressed] = useState<{ url: string; size: number } | null>(null);
   const [quality, setQuality] = useState(0.7);
@@ -52,7 +54,7 @@ export default function ImageCompressPage() {
   };
 
   return (
-    <ToolLayout title="图片压缩" description="在线无损/有损压缩，不上传服务器，所有处理在浏览器本地完成">
+    <ToolLayout toolId="image-compress">
       <div
         className="border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-colors"
         style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
@@ -63,8 +65,8 @@ export default function ImageCompressPage() {
           if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
         }}
       >
-        <p className="text-lg mb-1">📦 点击或拖拽上传图片</p>
-        <p className="text-sm">支持 JPG、PNG、WebP</p>
+        <p className="text-lg mb-1">📦 {t("toolPages.image-compress.uploadHint")}</p>
+        <p className="text-sm">{t("toolPages.image-compress.supportFormats")}</p>
         <input
           ref={inputRef}
           type="file"
@@ -78,7 +80,7 @@ export default function ImageCompressPage() {
         <div className="mt-6 space-y-4">
           <div className="flex items-center gap-4">
             <label className="text-sm" style={{ color: "var(--text-secondary)" }}>
-              质量: {Math.round(quality * 100)}%
+              {t("toolPages.image-compress.quality")}: {Math.round(quality * 100)}%
             </label>
             <input
               type="range"
@@ -90,23 +92,23 @@ export default function ImageCompressPage() {
               className="flex-1"
             />
             <button onClick={compress} className="px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>
-              压缩
+              {t("common.compress")}
             </button>
           </div>
 
           <div className="flex gap-4 text-sm" style={{ color: "var(--text-secondary)" }}>
-            <span>原始大小: <strong style={{ color: "var(--text-primary)" }}>{formatSize(original.size)}</strong></span>
+            <span>{t("toolPages.image-compress.originalSize")}: <strong style={{ color: "var(--text-primary)" }}>{formatSize(original.size)}</strong></span>
             {compressed && (
               <>
-                <span>压缩后: <strong style={{ color: "var(--text-primary)" }}>{formatSize(compressed.size)}</strong></span>
-                <span>节省: <strong style={{ color: "#22c55e" }}>{Math.round((1 - compressed.size / original.size) * 100)}%</strong></span>
+                <span>{t("toolPages.image-compress.compressedSize")}: <strong style={{ color: "var(--text-primary)" }}>{formatSize(compressed.size)}</strong></span>
+                <span>{t("toolPages.image-compress.saved")}: <strong style={{ color: "#22c55e" }}>{Math.round((1 - compressed.size / original.size) * 100)}%</strong></span>
               </>
             )}
           </div>
 
           {compressed && (
             <button onClick={download} className="px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>
-              下载压缩图片
+              {t("toolPages.image-compress.downloadCompressed")}
             </button>
           )}
         </div>

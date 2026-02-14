@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 export default function TextDedupe() {
+  const { t } = useTranslation();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [caseSensitive, setCaseSensitive] = useState(true);
@@ -73,7 +76,7 @@ export default function TextDedupe() {
               onChange={(e) => setCaseSensitive(e.target.checked)}
               className="w-4 h-4"
             />
-            <span>区分大小写</span>
+            <span>{t("toolPages.text-dedupe.caseSensitive")}</span>
           </label>
           <label className="flex items-center gap-2">
             <input

@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState } from "react";
 
 const inputStyle = "w-full rounded-lg p-3 border";
@@ -8,6 +9,7 @@ const btnStyle: React.CSSProperties = { background: "var(--accent)", color: "#ff
 const sizes = [16, 32, 48, 64, 128, 256];
 
 export default function FaviconGeneratorPage() {
+  const { t } = useTranslation();
   const [imgSrc, setImgSrc] = useState("");
   const [previews, setPreviews] = useState<{ size: number; url: string }[]>([]);
 
@@ -42,7 +44,7 @@ export default function FaviconGeneratorPage() {
   };
 
   return (
-    <ToolLayout title="Favicon 生成器" description="上传图片，生成多种尺寸的 Favicon">
+    <ToolLayout toolId="favicon-generator">
       <div className="space-y-4">
         <input type="file" accept="image/*" onChange={onFile} className={inputStyle} style={inputCss} />
         {previews.length > 0 && (

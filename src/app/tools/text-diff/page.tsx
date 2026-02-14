@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 interface DiffLine { type: "same" | "add" | "del"; text: string }
 
@@ -33,6 +34,7 @@ function diffLines(a: string[], b: string[]): DiffLine[] {
 }
 
 export default function TextDiff() {
+  const { t } = useTranslation();
   const [left, setLeft] = useState("");
   const [right, setRight] = useState("");
   const [result, setResult] = useState<DiffLine[]>([]);
@@ -42,12 +44,12 @@ export default function TextDiff() {
   const colors: Record<string, string> = { add: "#22c55e", del: "#ef4444" };
 
   return (
-    <ToolLayout title="文本对比" description="逐行对比两段文本，高亮显示差异">
+    <ToolLayout toolId="text-diff">
       <div className="grid grid-cols-2 gap-4">
-        <textarea value={left} onChange={e => setLeft(e.target.value)} placeholder="原始文本..." rows={10} className="w-full rounded-lg p-3" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }} />
-        <textarea value={right} onChange={e => setRight(e.target.value)} placeholder="修改后文本..." rows={10} className="w-full rounded-lg p-3" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }} />
+        <textarea value={left} onChange={e => setLeft(e.target.value)} placeholder={t("toolPages.text-diff.leftPlaceholder")} rows={10} className="w-full rounded-lg p-3" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }} />
+        <textarea value={right} onChange={e => setRight(e.target.value)} placeholder={t("toolPages.text-diff.rightPlaceholder")} rows={10} className="w-full rounded-lg p-3" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }} />
       </div>
-      <button onClick={compare} className="mt-4 px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>对比</button>
+      <button onClick={compare} className="mt-4 px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>{t("toolPages.text-diff.compare")}</button>
       {result.length > 0 && (
         <div className="mt-4 rounded-lg overflow-hidden" style={{ border: "1px solid var(--border)" }}>
           {result.map((line, i) => (

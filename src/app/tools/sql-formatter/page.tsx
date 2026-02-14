@@ -1,9 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { format } from 'sql-formatter';
 
 export default function SqlFormatter() {
+  const { t } = useTranslation();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [language, setLanguage] = useState<'sql' | 'mysql' | 'postgresql' | 'sqlite'>('sql');

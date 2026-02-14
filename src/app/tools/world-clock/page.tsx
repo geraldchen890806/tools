@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState, useEffect } from "react";
 
 const cities = [
@@ -23,21 +24,21 @@ function getTime(tz: string, now: Date) {
   return { time: fmt.format(now), date: dfmt.format(now) };
 }
 
-function getDiff(tz: string): string {
-  const now = new Date();
-  const bj = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
-  const local = new Date(now.toLocaleString("en-US", { timeZone: tz }));
-  const diff = Math.round((local.getTime() - bj.getTime()) / 3600000);
-  if (diff === 0) return "同北京";
-  return diff > 0 ? `+${diff}h` : `${diff}h`;
-}
-
 export default function Page() {
+  const { t } = useTranslation();
   const [now, setNow] = useState(new Date());
-  useEffect(() => { const t = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(t); }, []);
+  useEffect(() => { const timer = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(timer); }, []);
+
+  const getDiff = (tz: string): string => {
+    const bjTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
+    const local = new Date(now.toLocaleString("en-US", { timeZone: tz }));
+    const diff = Math.round((local.getTime() - bjTime.getTime()) / 3600000);
+    if (diff === 0) return t("toolPages.world-clock.diffWithBeijing");
+    return diff > 0 ? `+${diff}${t("toolPages.world-clock.hours")}` : `${diff}${t("toolPages.world-clock.hours")}`;
+  };
 
   return (
-    <ToolLayout title="世界时钟" description="12 个主要城市实时时间">
+    <ToolLayout toolId="world-clock">
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
         {cities.map(c => {
           const { time, date } = getTime(c.tz, now);

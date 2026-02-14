@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 export default function UrlEncoder() {
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
@@ -15,15 +17,15 @@ export default function UrlEncoder() {
   const inputStyle = { background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" };
 
   return (
-    <ToolLayout title="URL 编解码" description="URL 编码和解码工具">
-      <textarea value={input} onChange={e => setInput(e.target.value)} placeholder="输入文本或 URL..." rows={6} className="w-full rounded-lg p-3" style={inputStyle} />
+    <ToolLayout toolId="url-encoder">
+      <textarea value={input} onChange={e => setInput(e.target.value)} placeholder={t("toolPages.url-encoder.inputPlaceholder")} rows={6} className="w-full rounded-lg p-3" style={inputStyle} />
       <div className="flex gap-2 mt-4">
-        <button onClick={encode} className="px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>编码</button>
-        <button onClick={decode} className="px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>解码</button>
-        <button onClick={copy} className="px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>复制结果</button>
+        <button onClick={encode} className="px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>{t("common.encode")}</button>
+        <button onClick={decode} className="px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>{t("common.decode")}</button>
+        <button onClick={copy} className="px-4 py-2 rounded-lg text-white" style={{ background: "var(--accent)" }}>{t("common.copyResult")}</button>
       </div>
       {error && <div className="mt-3 text-sm p-3 rounded-lg" style={{ color: "#ef4444", background: "#ef444420" }}>{error}</div>}
-      <textarea value={output} readOnly placeholder="结果..." rows={6} className="w-full rounded-lg p-3 mt-4" style={inputStyle} />
+      <textarea value={output} readOnly placeholder={t("toolPages.url-encoder.resultPlaceholder")} rows={6} className="w-full rounded-lg p-3 mt-4" style={inputStyle} />
     </ToolLayout>
   );
 }

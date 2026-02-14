@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState } from "react";
 
 const presets = [
@@ -35,11 +36,12 @@ function explain(v: string[]): string {
 }
 
 export default function Page() {
+  const { t } = useTranslation();
   const [vals, setVals] = useState(["*", "*", "*", "*", "*"]);
   const set = (i: number, v: string) => { const n = [...vals]; n[i] = v; setVals(n); };
 
   return (
-    <ToolLayout title="Cron 表达式" description="解析 Cron 表达式为可读描述">
+    <ToolLayout toolId="cron-parser">
       <div style={{ display: "flex", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
         {fields.map((f, i) => (
           <div key={f} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>

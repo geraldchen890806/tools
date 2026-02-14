@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 
 // Lunar calendar lookup table 1900-2100
 // Each entry encodes: months' big/small (bits 0-11), leap month (bits 16-19), leap month big/small (bit 12)
@@ -80,6 +81,7 @@ const cardStyle: React.CSSProperties = { background: "var(--bg-card)", border: "
 const btnStyle: React.CSSProperties = { background: "var(--accent)", color: "white", border: "none", borderRadius: 6, padding: "6px 14px", cursor: "pointer", fontWeight: 500 };
 
 export default function CalendarPage() {
+  const { t } = useTranslation();
   const now = new Date();
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth() + 1);
@@ -103,7 +105,7 @@ export default function CalendarPage() {
   }
 
   return (
-    <ToolLayout title="万年历" description="公历农历对照，传统节日节气标注">
+    <ToolLayout toolId="calendar">
       <div style={cardStyle}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 8 }}>
           <button onClick={prev} style={btnStyle}>◀ 上月</button>
@@ -115,7 +117,7 @@ export default function CalendarPage() {
             <div style={{ color: "var(--text-secondary)", fontSize: 13 }}>{lunar.ganZhi}年 [{lunar.animal}年]</div>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={goToday} style={{ ...btnStyle, background: "var(--bg-primary)", color: "var(--text-primary)", border: "1px solid var(--border)" }}>今天</button>
+            <button onClick={goToday} style={{ ...btnStyle, background: "var(--bg-primary)", color: "var(--text-primary)", border: "1px solid var(--border)" }}>{t("toolPages.calendar.today")}</button>
             <button onClick={next} style={btnStyle}>下月 ▶</button>
           </div>
         </div>

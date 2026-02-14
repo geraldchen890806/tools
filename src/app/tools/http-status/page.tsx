@@ -1,5 +1,6 @@
 "use client";
 import { ToolLayout } from "@/components/ToolLayout";
+import { useTranslation } from "@/i18n";
 import { useState } from "react";
 
 const data = [
@@ -40,12 +41,13 @@ const groups = [
 const colorMap: Record<string, string> = { "1": "var(--text-secondary)", "2": "#22c55e", "3": "#3b82f6", "4": "#f59e0b", "5": "#ef4444" };
 
 export default function Page() {
+  const { t } = useTranslation();
   const [q, setQ] = useState("");
   const filtered = data.filter(d => !q || String(d.code).includes(q) || d.name.toLowerCase().includes(q.toLowerCase()));
 
   return (
-    <ToolLayout title="HTTP 状态码" description="常见 HTTP 状态码速查">
-      <input value={q} onChange={e => setQ(e.target.value)} placeholder="搜索状态码或名称..." style={{ width: "100%", background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, marginBottom: 16 }} />
+    <ToolLayout toolId="http-status">
+      <input value={q} onChange={e => setQ(e.target.value)} placeholder={t("toolPages.http-status.searchPlaceholder")} style={{ width: "100%", background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, marginBottom: 16 }} />
       {groups.map(g => {
         const items = filtered.filter(d => d.code >= g.range[0] && d.code <= g.range[1]);
         if (!items.length) return null;
