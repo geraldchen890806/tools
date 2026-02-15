@@ -113,3 +113,12 @@ export const categories: Category[] = [
 ];
 
 export const allTools = categories.flatMap((c) => c.tools);
+
+// 热门推荐工具（Top 5）
+export const featuredTools: Tool[] = [
+  { id: "json-formatter", href: "/tools/json-formatter", icon: "📋" },
+  { id: "qrcode", href: "/tools/qrcode", icon: "📱" },
+  { id: "password-generator", href: "/tools/password-generator", icon: "🔑" },
+  { id: "image-compress", href: "/tools/image-compress", icon: "📦" },
+  { id: "timestamp", href: "/tools/timestamp", icon: "⏰" },
+];

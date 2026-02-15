@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { categories, allTools, type Tool } from "@/config/tools";
+import { categories, allTools, featuredTools, type Tool } from "@/config/tools";
 import Link from "next/link";
 import { HomepageJsonLd } from "./homepage-jsonld";
 import { useTranslation } from "@/i18n";
@@ -55,6 +55,21 @@ export default function Home() {
           </span>
         </div>
       </section>
+
+      {/* Featured Tools */}
+      {!search.trim() && (
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-center flex items-center justify-center gap-2">
+            <span>🔥</span>
+            <span>{t("home.featured")}</span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {featuredTools.map((tool) => (
+              <FeaturedToolCard key={tool.href} tool={tool} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Search Results */}
       {filtered ? (
@@ -135,6 +150,41 @@ export default function Home() {
         </>
       )}
     </div>
+  );
+}
+
+function FeaturedToolCard({ tool }: { tool: Tool }) {
+  const { t } = useTranslation();
+  return (
+    <Link
+      href={tool.href}
+      className="group block p-6 rounded-2xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      style={{
+        background: "var(--bg-card)",
+        borderColor: "var(--accent-light)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "var(--accent-light)";
+        e.currentTarget.style.borderColor = "var(--accent)";
+        e.currentTarget.style.transform = "translateY(-4px)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "var(--bg-card)";
+        e.currentTarget.style.borderColor = "var(--accent-light)";
+        e.currentTarget.style.transform = "translateY(0)";
+      }}
+    >
+      <div className="text-center">
+        <div className="text-4xl mb-3">{tool.icon}</div>
+        <h3 className="font-bold text-base mb-2">{t(`tools.${tool.id}.name`)}</h3>
+        <p
+          className="text-xs leading-relaxed"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          {t(`tools.${tool.id}.description`)}
+        </p>
+      </div>
+    </Link>
   );
 }
 
