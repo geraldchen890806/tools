@@ -157,12 +157,12 @@ export default function ImageCropPage() {
             </div>
             <div ref={containerRef} className="relative inline-block" style={{ width: previewW, height: previewH, userSelect: "none" }}>
               <img src={imgSrc} alt="preview" style={{ width: previewW, height: previewH, display: "block" }} />
-              {/* Dark overlay with cutout */}
+              {/* Dark overlay with cutout - lighter for better visibility */}
               <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: y * scale, background: "rgba(0,0,0,0.5)" }} />
-                <div style={{ position: "absolute", top: (y + h) * scale, left: 0, width: "100%", height: previewH - (y + h) * scale, background: "rgba(0,0,0,0.5)" }} />
-                <div style={{ position: "absolute", top: y * scale, left: 0, width: x * scale, height: h * scale, background: "rgba(0,0,0,0.5)" }} />
-                <div style={{ position: "absolute", top: y * scale, left: (x + w) * scale, width: previewW - (x + w) * scale, height: h * scale, background: "rgba(0,0,0,0.5)" }} />
+                <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: y * scale, background: "rgba(0,0,0,0.2)" }} />
+                <div style={{ position: "absolute", top: (y + h) * scale, left: 0, width: "100%", height: previewH - (y + h) * scale, background: "rgba(0,0,0,0.2)" }} />
+                <div style={{ position: "absolute", top: y * scale, left: 0, width: x * scale, height: h * scale, background: "rgba(0,0,0,0.2)" }} />
+                <div style={{ position: "absolute", top: y * scale, left: (x + w) * scale, width: previewW - (x + w) * scale, height: h * scale, background: "rgba(0,0,0,0.2)" }} />
               </div>
               {/* Draggable crop box */}
               <div
@@ -175,7 +175,7 @@ export default function ImageCropPage() {
                   height: h * scale,
                   border: "2px solid var(--accent)",
                   cursor: "move",
-                  boxShadow: "0 0 0 9999px rgba(0,0,0,0.3)"
+                  boxShadow: "0 0 0 1px rgba(255,255,255,0.8), 0 0 20px rgba(0,0,0,0.3)"
                 }}
               >
                 {/* Corner handles */}
@@ -218,7 +218,11 @@ export default function ImageCropPage() {
             </div>
           </>
         )}
-        {result && <img src={result} alt="cropped" className="rounded-lg border" style={{ borderColor: "var(--border)", maxWidth: 400 }} />}
+        {result && (
+          <div className="mt-4 p-1 inline-block rounded-lg" style={{ background: "var(--accent)", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
+            <img src={result} alt="cropped" className="rounded-lg" style={{ display: "block", maxWidth: 400 }} />
+          </div>
+        )}
       </div>
     </ToolLayout>
   );
