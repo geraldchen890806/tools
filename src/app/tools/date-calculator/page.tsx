@@ -7,7 +7,7 @@ import { useTranslation } from "@/i18n";
 const inputStyle: React.CSSProperties = { background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", padding: "8px 12px", borderRadius: 6, width: "100%" };
 const btnStyle: React.CSSProperties = { background: "var(--accent)", color: "white", padding: "8px 20px", borderRadius: 6, border: "none", cursor: "pointer", fontWeight: 500 };
 const cardStyle: React.CSSProperties = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 12, padding: 20 };
-const weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 function fmt(d: Date) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; }
 function today() { return fmt(new Date()); }

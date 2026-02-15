@@ -32,8 +32,8 @@ export default function Page() {
     try {
       const obj = JSON.parse(json);
       const r = queryPath(obj, path);
-      setResult(r === undefined ? "未找到" : JSON.stringify(r, null, 2));
-    } catch (e) { setResult("错误: " + (e as Error).message); }
+      setResult(r === undefined ? t("toolPages.json-path.notFound") : JSON.stringify(r, null, 2));
+    } catch (e) { setResult(t("toolPages.json-path.error") + ": " + (e as Error).message); }
   };
 
   return (

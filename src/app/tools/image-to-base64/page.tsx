@@ -45,7 +45,7 @@ export default function ImageToBase64Page() {
           if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
         }}
       >
-        <p>🖼️ 点击或拖拽上传图片</p>
+        <p>🖼️ {t("toolPages.image-to-base64.uploadHint")}</p>
         <input
           ref={inputRef}
           type="file"
@@ -59,14 +59,14 @@ export default function ImageToBase64Page() {
         <div className="mt-4">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-              字符数: {charCount.toLocaleString()}
+              {t("toolPages.image-to-base64.charCount")}: {charCount.toLocaleString()}
             </span>
             <button
               onClick={() => navigator.clipboard.writeText(base64)}
               className="px-3 py-1.5 rounded-lg text-white text-sm"
               style={{ background: "var(--accent)" }}
             >
-              复制
+              {t("common.copy")}
             </button>
           </div>
           <textarea
@@ -80,7 +80,7 @@ export default function ImageToBase64Page() {
 
       {/* Base64 to Image */}
       <div className="mt-8 pt-6 border-t" style={{ borderColor: "var(--border)" }}>
-        <h3 className="font-semibold mb-3">Base64 → 图片</h3>
+        <h3 className="font-semibold mb-3">{t("toolPages.image-to-base64.toImage")}</h3>
         <textarea
           className="w-full h-28 rounded-lg p-3 border resize-none font-mono text-xs"
           style={{ background: "var(--bg-secondary)", borderColor: "var(--border)", color: "var(--text-primary)" }}
@@ -93,7 +93,7 @@ export default function ImageToBase64Page() {
           className="mt-2 px-4 py-2 rounded-lg text-white"
           style={{ background: "var(--accent)" }}
         >
-          预览
+          {t("toolPages.image-to-base64.preview")}
         </button>
         {previewUrl && (
           <div className="mt-4">

@@ -103,11 +103,11 @@ export default function NotesPage() {
           <input value={title} onChange={e => setTitle(e.target.value)} placeholder={t("toolPages.notes.titlePlaceholder")} style={inputStyle} />
           <textarea value={content} onChange={e => setContent(e.target.value)} placeholder={t("toolPages.notes.contentPlaceholder")} rows={3} style={{ ...inputStyle, resize: "vertical" }} />
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-            <label style={{ color: "var(--text-secondary)", fontSize: 13, whiteSpace: "nowrap" }}>提醒时间：</label>
+            <label style={{ color: "var(--text-secondary)", fontSize: 13, whiteSpace: "nowrap" }}>{t("toolPages.notes.reminderTime")}:</label>
             <input type="datetime-local" value={reminder} onChange={e => setReminder(e.target.value)} style={{ ...inputStyle, width: "auto", flex: 1, minWidth: 200 }} />
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={submit} style={btnStyle}>{editId ? "保存修改" : "添加备忘"}</button>
+            <button onClick={submit} style={btnStyle}>{editId ? t("toolPages.notes.saveChanges") : t("toolPages.notes.addNote")}</button>
             {editId && <button onClick={cancelEdit} style={{ ...btnStyle, background: "var(--bg-primary)", color: "var(--text-primary)", border: "1px solid var(--border)" }}>{t("toolPages.notes.cancel")}</button>}
           </div>
         </div>

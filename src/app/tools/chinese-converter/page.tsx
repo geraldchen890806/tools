@@ -47,11 +47,11 @@ export default function ChineseConverter() {
 
   return (
     <div className="container mx-auto max-w-4xl p-6">
-      <h1 className="text-3xl font-bold mb-6">繁简转换工具</h1>
+      <h1 className="text-3xl font-bold mb-6">{t("toolPages.chinese-converter.title")}</h1>
 
       {/* Mode Selection */}
       <div className="mb-4">
-        <label className="block mb-2 font-semibold">转换模式</label>
+        <label className="block mb-2 font-semibold">{t("toolPages.chinese-converter.mode")}</label>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {(Object.keys(modeLabels) as Array<keyof typeof modeLabels>).map((m) => (
             <button
@@ -71,11 +71,11 @@ export default function ChineseConverter() {
 
       {/* Input */}
       <div className="mb-4">
-        <label className="block mb-2 font-semibold">输入</label>
+        <label className="block mb-2 font-semibold">{t("common.input")}</label>
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="输入要转换的中文文本..."
+          placeholder={t("toolPages.chinese-converter.inputPlaceholder")}
           className="w-full h-48 p-3 border rounded text-base"
         />
       </div>
@@ -86,23 +86,23 @@ export default function ChineseConverter() {
           onClick={handleConvert}
           className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
-          转换
+          {t("common.convert")}
         </button>
         <button
           onClick={handleClear}
           className="px-6 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
         >
-          清空
+          {t("common.clear")}
         </button>
       </div>
 
       {/* Output */}
       <div className="mb-4">
-        <label className="block mb-2 font-semibold">输出</label>
+        <label className="block mb-2 font-semibold">{t("common.output")}</label>
         <textarea
           value={output}
           readOnly
-          placeholder="转换结果将显示在这里..."
+          placeholder={t("toolPages.chinese-converter.outputPlaceholder")}
           className="w-full h-48 p-3 border rounded text-base bg-gray-50"
         />
       </div>

@@ -22,7 +22,7 @@ export default function Page() {
 
   return (
     <ToolLayout toolId="log-highlighter">
-      <textarea value={text} onChange={e => setText(e.target.value)} placeholder="粘贴日志内容..." rows={10} style={{ width: "100%", background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, fontFamily: "monospace", resize: "vertical" }} />
+      <textarea value={text} onChange={e => setText(e.target.value)} placeholder={t("toolPages.log-highlighter.placeholder")} rows={10} style={{ width: "100%", background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)", borderRadius: 8, padding: 12, fontFamily: "monospace", resize: "vertical" }} />
       <div style={{ display: "flex", gap: 16, margin: "12px 0", flexWrap: "wrap" }}>
         {levels.map(l => (
           <label key={l} style={{ display: "flex", alignItems: "center", gap: 4, color: "var(--text-primary)", cursor: "pointer" }}>

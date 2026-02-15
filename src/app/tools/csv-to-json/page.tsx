@@ -38,7 +38,7 @@ export default function Page() {
   const convert = () => {
     try {
       const rows = parseCSV(csv.trim());
-      if (rows.length < 2) { setJson("需要至少两行（表头+数据）"); return; }
+      if (rows.length < 2) { setJson(t("toolPages.csv-to-json.errorMinRows")); return; }
       const headers = rows[0].map(h => h.trim());
       const result = rows.slice(1).map(row => {
         const obj: Record<string, string> = {};
@@ -46,7 +46,7 @@ export default function Page() {
         return obj;
       });
       setJson(JSON.stringify(result, null, 2));
-    } catch { setJson("解析错误"); }
+    } catch { setJson(t("toolPages.csv-to-json.errorParse")); }
   };
 
   const copy = () => { navigator.clipboard.writeText(json); };

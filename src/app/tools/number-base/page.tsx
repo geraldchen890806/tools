@@ -7,15 +7,14 @@ import { useTranslation } from "@/i18n";
 const inputStyle: React.CSSProperties = { background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" };
 const btnStyle: React.CSSProperties = { background: "var(--accent)", color: "white" };
 
-const bases = [
-  { label: "二进制 (2)", base: 2 },
-  { label: "八进制 (8)", base: 8 },
-  { label: "十进制 (10)", base: 10 },
-  { label: "十六进制 (16)", base: 16 },
-];
-
 export default function NumberBasePage() {
   const { t } = useTranslation();
+  const bases = [
+    { label: t("toolPages.number-base.binary"), base: 2 },
+    { label: t("toolPages.number-base.octal"), base: 8 },
+    { label: t("toolPages.number-base.decimal"), base: 10 },
+    { label: t("toolPages.number-base.hexadecimal"), base: 16 },
+  ];
   const [input, setInput] = useState("");
   const [srcBase, setSrcBase] = useState(10);
   const [results, setResults] = useState<{ label: string; value: string }[]>([]);
@@ -24,7 +23,7 @@ export default function NumberBasePage() {
   const convert = () => {
     setError("");
     const n = parseInt(input, srcBase);
-    if (isNaN(n)) { setError("无效输入"); setResults([]); return; }
+    if (isNaN(n)) { setError(t("toolPages.number-base.invalidInput")); setResults([]); return; }
     setResults(bases.map(b => ({ label: b.label, value: n.toString(b.base).toUpperCase() })));
   };
 
@@ -32,7 +31,7 @@ export default function NumberBasePage() {
     <ToolLayout toolId="number-base">
       <div className="space-y-4">
         <div className="flex gap-2">
-          <input value={input} onChange={e => setInput(e.target.value)} placeholder="输入数字" className="flex-1 rounded-lg p-3" style={inputStyle} />
+          <input value={input} onChange={e => setInput(e.target.value)} placeholder={t("toolPages.number-base.inputPlaceholder")} className="flex-1 rounded-lg p-3" style={inputStyle} />
           <select value={srcBase} onChange={e => setSrcBase(Number(e.target.value))} className="rounded-lg p-3" style={inputStyle}>
             {bases.map(b => <option key={b.base} value={b.base}>{b.label}</option>)}
           </select>

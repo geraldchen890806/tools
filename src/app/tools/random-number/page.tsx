@@ -21,22 +21,22 @@ export default function RandomNumber() {
 
     // Validation
     if (isNaN(minNum) || isNaN(maxNum) || isNaN(countNum)) {
-      setError('请输入有效的数字');
+      setError(t('toolPages.random-number.errorInvalidNumber'));
       return;
     }
 
     if (minNum >= maxNum) {
-      setError('{t("toolPages.random-number.min")}必须小于{t("toolPages.random-number.max")}');
+      setError(t('toolPages.random-number.errorMinMax'));
       return;
     }
 
     if (countNum < 1 || countNum > 1000) {
-      setError('{t("toolPages.random-number.count")}必须在 1-1000 之间');
+      setError(t('toolPages.random-number.errorCount'));
       return;
     }
 
     if (unique && countNum > maxNum - minNum + 1) {
-      setError('不重复模式下，数量不能超过范围大小');
+      setError(t('toolPages.random-number.errorUniqueRange'));
       return;
     }
 
@@ -73,7 +73,7 @@ export default function RandomNumber() {
 
   return (
     <div className="container mx-auto max-w-4xl p-6">
-      <h1 className="text-3xl font-bold mb-6">随机数生成器</h1>
+      <h1 className="text-3xl font-bold mb-6">Random Number Generator</h1>
 
       <div className="bg-white rounded-lg shadow p-6 mb-6">
         {/* Min/Max */}
@@ -123,7 +123,7 @@ export default function RandomNumber() {
               onChange={(e) => setUnique(e.target.checked)}
               className="w-4 h-4"
             />
-            <span>不重复（生成唯一数字）</span>
+            <span>{t("toolPages.random-number.unique")}</span>
           </label>
         </div>
 

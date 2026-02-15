@@ -12,15 +12,15 @@ const LOWER = "abcdefghijklmnopqrstuvwxyz";
 const DIGITS = "0123456789";
 const SPECIAL = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
-function getStrength(pw: string): { label: string; color: string; percent: number } {
+function getStrength(pw: string, t: (key: string) => string): { label: string; color: string; percent: number } {
   let score = 0;
   if (pw.length >= 12) score++; if (pw.length >= 20) score++;
   if (/[a-z]/.test(pw) && /[A-Z]/.test(pw)) score++;
   if (/\d/.test(pw)) score++;
   if (/[^a-zA-Z0-9]/.test(pw)) score++;
-  if (score <= 2) return { label: "弱", color: "#ef4444", percent: 33 };
-  if (score <= 3) return { label: "中", color: "#eab308", percent: 66 };
-  return { label: "强", color: "#22c55e", percent: 100 };
+  if (score <= 2) return { label: t("toolPages.password-generator.weak"), color: "#ef4444", percent: 33 };
+  if (score <= 3) return { label: t("toolPages.password-generator.medium"), color: "#eab308", percent: 66 };
+  return { label: t("toolPages.password-generator.strong"), color: "#22c55e", percent: 100 };
 }
 
 export default function PasswordGeneratorPage() {
@@ -44,7 +44,7 @@ export default function PasswordGeneratorPage() {
     setPassword(Array.from(arr, v => chars[v % chars.length]).join(""));
   };
 
-  const strength = password ? getStrength(password) : null;
+  const strength = password ? getStrength(password, t) : null;
 
   return (
     <ToolLayout toolId="password-generator">
@@ -54,14 +54,19 @@ export default function PasswordGeneratorPage() {
           <input type="range" min={8} max={64} value={length} onChange={e => setLength(Number(e.target.value))} className="w-full" />
         </div>
         <div className="flex gap-4 flex-wrap">
-          {[["大写", upper, setUpper], ["小写", lower, setLower], ["数字", digits, setDigits], ["特殊字符", special, setSpecial]].map(([label, val, set]) => (
+          {[
+            [t("toolPages.password-generator.includeUppercase"), upper, setUpper],
+            [t("toolPages.password-generator.includeLowercase"), lower, setLower],
+            [t("toolPages.password-generator.includeNumbers"), digits, setDigits],
+            [t("toolPages.password-generator.includeSymbols"), special, setSpecial]
+          ].map(([label, val, set]) => (
             <label key={label as string} className="flex items-center gap-1 text-sm" style={{ color: "var(--text-primary)" }}>
               <input type="checkbox" checked={val as boolean} onChange={e => (set as (v: boolean) => void)(e.target.checked)} />
               {label as string}
             </label>
           ))}
         </div>
-        <button onClick={generate} className="px-4 py-2 rounded-lg" style={btnStyle}>生成密码</button>
+        <button onClick={generate} className="px-4 py-2 rounded-lg" style={btnStyle}>{t("toolPages.password-generator.generate")}</button>
         {password && (
           <div className="space-y-2">
             <div className="flex items-center gap-2 p-3 rounded-lg" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>

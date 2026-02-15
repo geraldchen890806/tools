@@ -21,9 +21,9 @@ export default function AESPage() {
     setError("");
     setOutput("");
     try {
-      if (![16, 24, 32].includes(key.length)) { setError("Key 必须为 16/24/32 字符"); return; }
-      if (iv.length !== 16) { setError("IV 必须为 16 字符"); return; }
-      if (!input) { setError("请输入内容"); return; }
+      if (![16, 24, 32].includes(key.length)) { setError(t("toolPages.aes.errorKeyLength")); return; }
+      if (iv.length !== 16) { setError(t("toolPages.aes.errorIvLength")); return; }
+      if (!input) { setError(t("toolPages.aes.errorNoInput")); return; }
       const k = enc.Utf8.parse(key);
       const i = enc.Utf8.parse(iv);
       if (modeType === "encrypt") {
@@ -32,11 +32,11 @@ export default function AESPage() {
       } else {
         const decrypted = AES.decrypt(input, k, { iv: i, mode: mode.CBC, padding: pad.Pkcs7 });
         const result = decrypted.toString(enc.Utf8);
-        if (!result) { setError("解密失败，请检查密钥和密文"); return; }
+        if (!result) { setError(t("toolPages.aes.errorDecryptFailed")); return; }
         setOutput(result);
       }
     } catch (e: any) {
-      setError(e.message || "操作失败");
+      setError(e.message || t("toolPages.aes.errorOperationFailed"));
     }
   };
 
@@ -48,15 +48,15 @@ export default function AESPage() {
             <button key={m} onClick={() => { setModeType(m); setOutput(""); setError(""); }}
               className="px-4 py-2 rounded-lg font-medium transition-opacity"
               style={modeType === m ? btnStyle : { background: "var(--bg-secondary)", color: "var(--text-secondary)", borderColor: "var(--border)", borderWidth: 1 }}>
-              {m === "encrypt" ? "加密" : "解密"}
+              {m === "encrypt" ? t("common.encode") : t("common.decode")}
             </button>
           ))}
         </div>
         <input className={inputStyle} style={inputCss} placeholder={t("toolPages.aes.keyPlaceholder")} value={key} onChange={(e) => setKey(e.target.value)} />
-        <input className={inputStyle} style={inputCss} placeholder="IV（16 字符）" value={iv} onChange={(e) => setIv(e.target.value)} />
-        <textarea className={inputStyle} style={{ ...inputCss, minHeight: 120 }} placeholder={modeType === "encrypt" ? "输入明文" : "输入密文（Base64）"} value={input} onChange={(e) => setInput(e.target.value)} />
+        <input className={inputStyle} style={inputCss} placeholder={t("toolPages.aes.ivPlaceholder")} value={iv} onChange={(e) => setIv(e.target.value)} />
+        <textarea className={inputStyle} style={{ ...inputCss, minHeight: 120 }} placeholder={modeType === "encrypt" ? t("toolPages.aes.inputPlaceholder") : t("toolPages.aes.ciphertextPlaceholder")} value={input} onChange={(e) => setInput(e.target.value)} />
         <button onClick={run} className="px-4 py-2 rounded-lg font-medium" style={btnStyle}>
-          {modeType === "encrypt" ? "加密" : "解密"}
+          {modeType === "encrypt" ? t("common.encode") : t("common.decode")}
         </button>
         {error && <p style={{ color: "#ef4444" }}>{error}</p>}
         {output && (

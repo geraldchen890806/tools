@@ -19,7 +19,7 @@ export default function WordCounter() {
     { label: t("toolPages.word-counter.words"), value: words },
     { label: t("toolPages.word-counter.chineseChars"), value: chinese },
     { label: t("toolPages.word-counter.lines"), value: lines },
-    { label: "段落数", value: paragraphs },
+    { label: t("toolPages.word-counter.paragraphs"), value: paragraphs },
   ];
 
   return (
@@ -27,7 +27,7 @@ export default function WordCounter() {
       <textarea
         value={text}
         onChange={e => setText(e.target.value)}
-        placeholder="在此输入或粘贴文本..."
+        placeholder={t("toolPages.word-counter.placeholder")}
         rows={10}
         className="w-full rounded-lg p-3"
         style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", color: "var(--text-primary)" }}

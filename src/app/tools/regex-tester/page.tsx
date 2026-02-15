@@ -36,7 +36,7 @@ export default function RegexTester() {
     <ToolLayout toolId="regex-tester">
       <div className="flex gap-4">
         <div className="flex-1">
-          <label className="text-sm mb-1 block" style={{ color: "var(--text-secondary)" }}>正则表达式</label>
+          <label className="text-sm mb-1 block" style={{ color: "var(--text-secondary)" }}>{t("toolPages.regex-tester.pattern")}</label>
           <input value={pattern} onChange={e => setPattern(e.target.value)} placeholder={t("toolPages.regex-tester.patternPlaceholder")} className="w-full rounded-lg p-3" style={inputStyle} />
         </div>
         <div className="w-24">
@@ -53,7 +53,7 @@ export default function RegexTester() {
             <div className="font-mono text-sm whitespace-pre-wrap" style={{ color: "var(--text-primary)" }} dangerouslySetInnerHTML={{ __html: highlighted }} />
           </div>
           <div className="rounded-lg p-3" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
-            <div className="text-sm mb-2" style={{ color: "var(--text-secondary)" }}>匹配项 ({matches.length})</div>
+            <div className="text-sm mb-2" style={{ color: "var(--text-secondary)" }}>{t("toolPages.regex-tester.matches")} ({matches.length})</div>
             {matches.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {matches.map((m, i) => (

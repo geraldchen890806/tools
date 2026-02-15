@@ -22,16 +22,16 @@ export default function TimestampPage() {
 
   const convertTs = () => {
     const n = Number(tsInput);
-    if (isNaN(n)) { setTsResult("无效时间戳"); return; }
+    if (isNaN(n)) { setTsResult(t("toolPages.timestamp.invalidTimestamp")); return; }
     const ms = tsInput.length > 10 ? n : n * 1000;
     const d = new Date(ms);
-    setTsResult(d.toLocaleString() + `\nISO: ${d.toISOString()}\n{t("toolPages.timestamp.seconds")}: ${Math.floor(ms / 1000)}\n毫{t("toolPages.timestamp.seconds")}: ${ms}`);
+    setTsResult(d.toLocaleString() + `\nISO: ${d.toISOString()}\n${t("toolPages.timestamp.seconds")}: ${Math.floor(ms / 1000)}\n${t("toolPages.timestamp.milliseconds")}: ${ms}`);
   };
 
   const convertDate = () => {
     const d = new Date(dateInput);
-    if (isNaN(d.getTime())) { setDateResult("无效日期"); return; }
-    setDateResult(`{t("toolPages.timestamp.seconds")}: ${Math.floor(d.getTime() / 1000)}\n毫{t("toolPages.timestamp.seconds")}: ${d.getTime()}`);
+    if (isNaN(d.getTime())) { setDateResult(t("toolPages.timestamp.invalidDate")); return; }
+    setDateResult(`${t("toolPages.timestamp.seconds")}: ${Math.floor(d.getTime() / 1000)}\n${t("toolPages.timestamp.milliseconds")}: ${d.getTime()}`);
   };
 
   const copy = (t: string) => navigator.clipboard.writeText(t);
@@ -52,19 +52,19 @@ export default function TimestampPage() {
         </div>
 
         <div>
-          <label className="block text-sm mb-1" style={{ color: "var(--text-secondary)" }}>时间戳 → 日期</label>
+          <label className="block text-sm mb-1" style={{ color: "var(--text-secondary)" }}>{t("toolPages.timestamp.toDate")}</label>
           <div className="flex gap-2">
-            <input value={tsInput} onChange={e => setTsInput(e.target.value)} placeholder="输入时间戳（秒或毫秒）" className="flex-1 rounded-lg p-3" style={inputStyle} />
-            <button onClick={convertTs} className="px-4 py-2 rounded-lg" style={btnStyle}>转换</button>
+            <input value={tsInput} onChange={e => setTsInput(e.target.value)} placeholder={t("toolPages.timestamp.timestampPlaceholder")} className="flex-1 rounded-lg p-3" style={inputStyle} />
+            <button onClick={convertTs} className="px-4 py-2 rounded-lg" style={btnStyle}>{t("common.convert")}</button>
           </div>
           {tsResult && <pre className="mt-2 p-3 rounded-lg text-sm font-mono whitespace-pre-wrap" style={{ background: "var(--bg-secondary)", color: "var(--text-primary)" }}>{tsResult}</pre>}
         </div>
 
         <div>
-          <label className="block text-sm mb-1" style={{ color: "var(--text-secondary)" }}>日期 → 时间戳</label>
+          <label className="block text-sm mb-1" style={{ color: "var(--text-secondary)" }}>{t("toolPages.timestamp.toTimestamp")}</label>
           <div className="flex gap-2">
-            <input value={dateInput} onChange={e => setDateInput(e.target.value)} placeholder="如 2024-01-01 12:00:00" className="flex-1 rounded-lg p-3" style={inputStyle} />
-            <button onClick={convertDate} className="px-4 py-2 rounded-lg" style={btnStyle}>转换</button>
+            <input value={dateInput} onChange={e => setDateInput(e.target.value)} placeholder={t("toolPages.timestamp.dateTimePlaceholder")} className="flex-1 rounded-lg p-3" style={inputStyle} />
+            <button onClick={convertDate} className="px-4 py-2 rounded-lg" style={btnStyle}>{t("common.convert")}</button>
           </div>
           {dateResult && <pre className="mt-2 p-3 rounded-lg text-sm font-mono whitespace-pre-wrap" style={{ background: "var(--bg-secondary)", color: "var(--text-primary)" }}>{dateResult}</pre>}
         </div>
