@@ -85,6 +85,16 @@ export const categories: Category[] = [
     ],
   },
   {
+    id: "calculator",
+    icon: "🧮",
+    tools: [
+      { id: "unit-converter", href: "/tools/unit-converter", icon: "🔄", isNew: true },
+      { id: "calculator", href: "/tools/calculator", icon: "🔢", isNew: true },
+      { id: "bmi-calculator", href: "/tools/bmi-calculator", icon: "⚖️", isNew: true },
+      { id: "loan-calculator", href: "/tools/loan-calculator", icon: "💰", isNew: true },
+    ],
+  },
+  {
     id: "text",
     icon: "✏️",
     tools: [
@@ -93,6 +103,11 @@ export const categories: Category[] = [
       { id: "text-diff", href: "/tools/text-diff", icon: "📄" },
       { id: "csv-to-json", href: "/tools/csv-to-json", icon: "📊", isNew: true },
       { id: "text-dedupe", href: "/tools/text-dedupe", icon: "🧹", isNew: true },
+      { id: "xml-formatter", href: "/tools/xml-formatter", icon: "📄", isNew: true },
+      { id: "yaml-json", href: "/tools/yaml-json", icon: "🔄", isNew: true },
+      { id: "escape", href: "/tools/escape", icon: "🏷️", isNew: true },
+      { id: "unicode", href: "/tools/unicode", icon: "🔤", isNew: true },
+      { id: "pinyin", href: "/tools/pinyin", icon: "🇨🇳", isNew: true },
     ],
   },
 ];

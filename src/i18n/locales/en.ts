@@ -473,6 +473,7 @@ const en: Locale = {
     dev: "Dev Tools",
     converter: "Converters",
     generator: "Generators",
+    calculator: "Calculators",
     crypto: "Crypto",
     time: "Time Tools",
     image: "Image Tools",

@@ -471,6 +471,7 @@ const zh = {
     dev: "开发工具",
     converter: "转换工具",
     generator: "生成工具",
+    calculator: "计算工具",
     crypto: "加密解密",
     time: "时间工具",
     image: "图片工具",
